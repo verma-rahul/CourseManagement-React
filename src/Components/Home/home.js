@@ -4,7 +4,7 @@
 */
 import  React, { Component } from 'react';
 import * as B from 'react-bootstrap';
-
+import axios from 'axios';
 class Home extends Component {
   constructor(props) {
     super(props)
@@ -18,21 +18,16 @@ class Home extends Component {
     }
     fetchMessage()
     {
-      fetch('/api', {
-      headers : {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-       }})
-        .then(response => {
-          if (!response.ok) {
+      axios({
+          method: 'get',
+          url: '/api'}
+      ).then(response => {
+        console.log(response)
+          if (response.status!==200) {
             throw new Error(`status ${response.status}`);
           }
-          console.log(response)
-          return response.json();
-        })
-        .then(json => {
           this.setState({
-            message: json.message,
+            message: response.data.message,
             fetching: false
           });
         }).catch(e => {
