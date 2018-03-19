@@ -18,7 +18,11 @@ class Home extends Component {
     }
     fetchMessage()
     {
-      fetch('/api')
+      fetch('/api', {
+      headers : {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+       }})
         .then(response => {
           if (!response.ok) {
             throw new Error(`status ${response.status}`);
