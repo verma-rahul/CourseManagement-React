@@ -1,7 +1,10 @@
 {
   "name": "course-management-react",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
+  "engines": {
+    "node": "8.9.x"
+  },
   "dependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -12,5 +15,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "cacheDirectories": [
+    "node_modules"
+  ],
+  "license": "MIT"
 }
