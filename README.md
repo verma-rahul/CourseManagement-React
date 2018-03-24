@@ -38,7 +38,7 @@ Our file structure will look like this :
   - For Heroku the proxy is set on static.json
 2. It uses the [this](https://github.com/mars/create-react-app-buildpack.git) Builpack which internally hosts the application through express and using other buildpacks.
 3. To use the following dependency you can either declare it at creation of heroku application or in `app.json` (check its documentation)
-4. We have used [Semantic-React-UI] which provides plethora of options for components creation(https://react.semantic-ui.com/introductio)
+4. We have used [Semantic-React-UI](https://react.semantic-ui.com/introduction) which provides plethora of options for components creation 
 
 #### Settings to change :
 ##### Proxy URL:
