@@ -38,8 +38,14 @@ Our file structure will look like this :
   - For Heroku the proxy is set on static.json
 2. It uses the [this](https://github.com/mars/create-react-app-buildpack.git) Builpack which internally hosts the application through express and using other buildpacks.
 3. To use the following dependency you can either declare it at creation of heroku application or in `app.json` (check its documentation)
-4. We have to set the Config Variables (for now `API_URL`) in  `apps/$(Application-Name)/settings` to `$(Node Server)` .
-5. We have used [Semantic-React-UI] which provides plethora of options for components creation(https://react.semantic-ui.com/introductio)
+4. We have used [Semantic-React-UI] which provides plethora of options for components creation(https://react.semantic-ui.com/introductio)
+
+#### Settings to change :
+##### Proxy URL:
+  
+  - HEROKU: We have to set the Config Variables (for now `API_URL`) in  `apps/$(Application-Name)/settings` to `$(Node Server)` .
+  - LOCAl: We have to change in `Package.json` at line `30`  and set `"target": YOUR_TARGET_SERVER`
+  
 # Future Work:
 ## Page Components:
    - Login
