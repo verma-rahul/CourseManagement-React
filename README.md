@@ -39,7 +39,7 @@ Our file structure will look like this :
 2. It uses the [this](https://github.com/mars/create-react-app-buildpack.git) Builpack which internally hosts the application through express and using other buildpacks.
 3. To use the following dependency you can either declare it at creation of heroku application or in `app.json` (check its documentation)
 4. We have used [Semantic-React-UI] which provides plethora of options for components creation(https://react.semantic-ui.com/introductio)
-#### Future Work:
+# Future Work:
 ## Page Components:
    - Login
    - Signup
@@ -52,9 +52,9 @@ Our file structure will look like this :
   - Fix Sidebar with Sections(with delete option) and add New section field
   - Tabs with Topics inside each Section (with delete option) and add New topic field
   - Display Page with :
-            - Previously created Widget with an option of drag&drop,edit and delete
-            - Add New Widget dropdown
-            - Modal to add new Widget
+    -   Previously created Widget with an option of drag & drop, edit and delete
+    -   Add New Widget dropdown
+    -   Modal to add new Widget
    
 
 
