@@ -43,7 +43,7 @@ Our file structure will look like this :
 #### Settings to change :
 ##### Proxy URL:
   
-  - HEROKU: We have to set the Config Variables (for now `API_URL`) in  `apps/$(Application-Name)/settings` to `$(Node Server)` .
+  - HEROKU: We have to set the Config Variables (for now `API_URL`) in  `apps/APPLICATION_NAME/settings` to `YOUR_TARGET_SERVER`.
   - LOCAl: We have to change in `Package.json` at line `30`  and set `"target": YOUR_TARGET_SERVER`
   
 # Future Work:
