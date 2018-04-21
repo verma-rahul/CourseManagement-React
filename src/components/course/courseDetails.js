@@ -4,8 +4,17 @@ import ChapterNavbar from './chapterNavbar'
 import WidgetPage from './widgetPage'
 import { Button, Checkbox, Form, Menu, Segment, Input , Advertisement, Dropdown,
 Container, Header, Embed, Grid, Message, Table, Icon, Rail} from 'semantic-ui-react'
+import {loadCourseDetails} from "../../actions/commonAction";
+import { connect } from 'react-redux';
 
 class CourseDetails extends Component {
+
+  componentWillMount(){
+    this.props.loadCourseDetails()
+  }
+  loadCourseDetails(){
+    console.log("In loadCourseDetails")
+  }
   render() {
 
     return (
@@ -24,6 +33,7 @@ class CourseDetails extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+});
 
-
-export default CourseDetails;
+export default connect(mapStateToProps, {loadCourseDetails})(CourseDetails);

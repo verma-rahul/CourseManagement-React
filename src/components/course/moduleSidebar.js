@@ -3,7 +3,7 @@ import {Icon, Dropdown, Menu , Sidebar,
   Segment, Button, Header,Input,Grid } from 'semantic-ui-react'
 
 import { connect } from 'react-redux';
-import {toggleSidebar, switchTab} from "../../actions/commonAction";
+import {toggleSidebar} from "../../actions/commonAction";
 class ModuleSidebar extends Component {
 
   constructor(props) {
@@ -46,7 +46,7 @@ class ModuleSidebar extends Component {
                        <Input icon='add' placeholder='Enter Section...' />
             </Menu.Item>
           </Sidebar>
-          <Sidebar.Pusher>        
+          <Sidebar.Pusher>
             {this.props.children}
           </Sidebar.Pusher>
         </Sidebar.Pushable>
@@ -60,4 +60,4 @@ const mapStateToProps = (state) => ({
     showSidebar:state.showSidebar
 });
 
-export default connect(mapStateToProps, {toggleSidebar,switchTab})(ModuleSidebar);
+export default connect(mapStateToProps, {toggleSidebar})(ModuleSidebar);

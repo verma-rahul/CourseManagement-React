@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Checkbox, Form, Menu, Segment, Input , Advertisement, Dropdown,
 Container, Header, Embed, Grid, Message, Table, Icon, Rail} from 'semantic-ui-react'
 import { connect } from 'react-redux';
-import {toggleSidebar, switchTab} from "../../actions/commonAction";
+import {toggleSidebar} from "../../actions/commonAction";
 
 class ChapterNavbar extends Component {
 
@@ -14,9 +14,9 @@ class ChapterNavbar extends Component {
         <Menu.Item onClick={this.props.toggleSidebar}>
           <Icon  name="sidebar" />Modules
         </Menu.Item>
-          <Menu.Item name='Assignment 1' active={this.props.chapter == 'Assignment 1'}/>
-          <Menu.Item name='Assignment 2' active={this.props.chapter == 'Assignment 2'}/>
-          <Menu.Item name='Assignment 3' active={this.props.chapter == 'Assignment 3'}/>
+          <Menu.Item name='Assignment 1' active={this.props.activeChapter == 'Assignment 1'}/>
+          <Menu.Item name='Assignment 2' active={this.props.activeChapter == 'Assignment 2'}/>
+          <Menu.Item name='Assignment 3' active={this.props.activeChapter == 'Assignment 3'}/>
           <Menu.Item>
                  <Input icon={{ name: 'add', circular: true, link: true }}
                     placeholder='Add Assignmnent...' />
@@ -27,11 +27,11 @@ class ChapterNavbar extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    chapter: state.chapter,
+    activeChapter: state.activeChapter,
     showSidebar:state.showSidebar
 });
 
-export default connect(mapStateToProps, {toggleSidebar, switchTab})(ChapterNavbar);
+export default connect(mapStateToProps, {toggleSidebar})(ChapterNavbar);
 
 
 // Another way to Map actions to props

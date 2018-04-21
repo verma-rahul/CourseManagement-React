@@ -19,11 +19,11 @@ class Navbar extends Component {
 }
 
  render() {
-   const activeItem = this.state.activeItem
    const activePage = this.state.activePage
    return (
        <Menu inverted fixed="top" fluid >
-          <Menu.Item as={Link} to='/'>
+          <Menu.Item as={Link} to='/' name='home' active={activePage === 'home'}
+            onClick={this.handlePageClick}>
           Course Manager
           </Menu.Item>
           <Menu.Menu position='right'>

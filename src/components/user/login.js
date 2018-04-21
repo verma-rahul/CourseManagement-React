@@ -36,7 +36,7 @@ class Login extends Component {
                           placeholder='Password'
                           type='password'
                         />
-                      <Button primary size="Large" fluid>Login</Button>
+                      <Button primary fluid>Login</Button>
                     </Form>
 
               </ Segment>
