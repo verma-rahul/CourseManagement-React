@@ -1,9 +1,9 @@
 import {BrowserRouter as Router} from 'react-router-dom';
 import React, { Component } from 'react';
 import {Route, Switch} from "react-router-dom";
-import Login from  "./components/User/login" ;
-import Register from "./components/User/register";
-import Profile from "./components/User/profile";
+import Login from  "./components/user/login" ;
+import Register from "./components/user/register";
+import Profile from "./components/user/profile";
 import CourseDetails from "./components/course/courseDetails"
 import CourseList from "./components/course/courseList"
 import Navbar from "./components/common/navbar"
