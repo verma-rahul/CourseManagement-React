@@ -1,0 +1,39 @@
+{
+  "name": "course-management-react",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": "8.9.x"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "history": "^4.7.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.1",
+    "redux": "^4.0.0",
+    "semantic-react": "^0.12.0",
+    "semantic-ui-css": "^2.3.1",
+    "semantic-ui-react": "^0.79.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "cacheDirectories": [
+    "node_modules"
+  ],
+  "license": "MIT",
+  "proxy": {
+    "/api": {
+      "target": "https://course-manager-spring-boot.herokuapp.com",
+      "secure": false,
+      "logLevel": "debug",
+      "changeOrigin": true
+    }
+  }
+}
