@@ -3,18 +3,21 @@ const INIT_CHAPTER_STATE = {
  chapters:[]
 }
 const INIT_MODULE_STATE = {
- activeModule:"",
- modules:[]
+ loading:false,
+ active:"",
+ modulesList:[],
+ failed:false
 }
 const INIT_WIDGET_PAGE_STATE = {
  widgets:[]
 }
 const INIT_APP_STATE = {
- showSidebar:false,
+ showSidebar:true,
  activePage:"home",
  user:true,
  courseDetail:[],
  courseloading:false,
  courseloadingFailed:false
 }
+
 export default {INIT_CHAPTER_STATE ,INIT_MODULE_STATE,INIT_WIDGET_PAGE_STATE,INIT_APP_STATE};

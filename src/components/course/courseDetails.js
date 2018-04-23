@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 class CourseDetails extends Component {
 
   componentWillMount(){
-    this.props.loadCourseDetails()
+    // this.props.loadCourseDetails()
   }
 
   render() {
@@ -24,29 +24,27 @@ class CourseDetails extends Component {
   </Grid>
     )
   const CoursePageLoaded= (
+    <Grid padded >
+          <Grid.Row >
+     <Segment padded='very' basic>
 <ModuleSidebar>
-<Grid padded >
-      <Grid.Row >
- <Segment padded='very' basic>
   <ChapterNavbar />
   <WidgetPage />
+</ModuleSidebar>
 </Segment>
  </Grid.Row>
 </Grid>
-</ModuleSidebar>)
+  )
 
     return (
-  <ModuleSidebar>
-  <Grid padded >
-        <Grid.Row >
-
-   <Segment padded basic>
+      <Grid>
+    <ModuleSidebar>
+       <Segment basic padded>
     <ChapterNavbar />
     <WidgetPage />
-  </Segment>
-   </Grid.Row>
-  </Grid>
-  </ModuleSidebar>);
+      </Segment>
+    </ModuleSidebar>
+    </Grid>);
   }
 }
 

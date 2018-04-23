@@ -8,7 +8,7 @@ import styles from './chapterNavbar.css';
 class ChapterNavbar extends Component {
 
   handaddClick(){
-     console.log("item ")
+     console.log("item ",)
   }
   render() {
     return (
@@ -16,9 +16,41 @@ class ChapterNavbar extends Component {
         <Menu.Item onClick={this.props.toggleSidebar} className='header'>
           <Icon  name="sidebar" />Modules
         </Menu.Item>
-          <Menu.Item name='Assignment 1' active={this.props.activeChapter == 'Assignment 1'}/>
-          <Menu.Item name='Assignment 2' active={this.props.activeChapter == 'Assignment 2'}/>
-          <Menu.Item name='Assignment 3' active={this.props.activeChapter == 'Assignment 3'}/>
+          <Menu.Item name='Assignment 1' active={this.props.activeChapter == 'Assignment 1'}>
+              Assignment 1
+             <Icon name='pencil' color="yellow" inverted circular link
+               onClick={() => this.handaddClick()} size="small"/>
+             <Icon name='close' color="red" inverted circular link
+                     onClick={() => this.handaddClick()} size="small"/>
+
+          </Menu.Item>
+
+          <Menu.Item name='Assignment 1' active={this.props.activeChapter == 'Assignment 1'}>
+              Assignment 1
+             <Icon name='pencil' color="yellow" inverted circular link
+               onClick={() => this.handaddClick()} size="small"/>
+             <Icon name='close' color="red" inverted circular link
+                     onClick={() => this.handaddClick()} size="small"/>
+
+          </Menu.Item>
+
+          <Menu.Item name='Assignment 1' active={this.props.activeChapter == 'Assignment 1'}>
+              Assignment 1
+             <Icon name='pencil' color="yellow" inverted circular link
+               onClick={() => this.handaddClick()} size="small"/>
+             <Icon name='close' color="red" inverted circular link
+                     onClick={() => this.handaddClick()} size="small"/>
+
+          </Menu.Item>
+
+          <Menu.Item>
+            <Input size="small" placeholder='Add Chapter..' >
+                <input />
+                  <Icon name='checkmark' color="teal" inverted circular link onClick={this.handaddClick}/>
+               <Icon name='add' color="green" inverted circular link onClick={this.handaddClick}/>
+           </Input>
+
+       </Menu.Item>
 
         </Menu>
     );
