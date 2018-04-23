@@ -61,7 +61,7 @@ class ModuleSidebar extends Component {
 
 
    return (
-     <div className="full-height">
+     <div className=" full-height-width">
      <Sidebar.Pushable as={Segment} attached="bottom" >
           <Sidebar as={Menu} animation='push' vertical
             visible={this.props.showSidebar} inverted color="blue"
@@ -69,14 +69,18 @@ class ModuleSidebar extends Component {
             {modulesMenuItems}
                  <Menu.Item>
                    <Input fluid size="mini" placeholder='Add Module..' >
-                       <input />
+
                          <Icon name='checkmark' color="teal" inverted circular link onClick={this.handaddClick}/>
+                         <input />
                       <Icon name='add' color="green" inverted circular link onClick={this.handaddClick}/>
                   </Input>
 
               </Menu.Item>
           </Sidebar>
-          <Sidebar.Pusher children={this.props.children}>
+          <Sidebar.Pusher>
+            <Segment basic>
+          {this.props.children}
+        </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
      </div>
@@ -98,14 +102,3 @@ export default connect(mapStateToProps, {loadModules})(ModuleSidebar);
 // <Menu.Item disabled>
 //         Link
 //     </Menu.Item>
-// icon={<Icon name='checkmark' color="blue" inverted circular link onClick={this.handaddClick}/>}
-// <Menu.Item header>Sections</Menu.Item>
-// <Menu.Item name='Assignments' active={activeItem === 'Assignments'} onClick={this.handleItemClick} />
-// <Menu.Item name='Exams' active={activeItem === 'Exams'} onClick={this.handleItemClick} />
-// <Menu.Item>
-// <Icon name='close' color="red" inverted circular link onClick={this.handaddClick}/>
-// <Icon name='pencil' color="yellow" inverted circular link onClick={this.handaddClick}/>
-   // <Icon name='pencil' color="yellow" inverted circular link onClick={this.handaddClick} size="mini"/>
-  //  <Button circular icon='close' onClick={this.handaddClick}
-  //    color="red"  floated='right' compact size="mini">
-  // </Button>

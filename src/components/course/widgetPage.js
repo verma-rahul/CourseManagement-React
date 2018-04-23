@@ -11,22 +11,13 @@ class WidgetPage extends Component {
       { key: 'TEXT', text: 'TEXT', value: 'TEXT' }
     ]
     return (
-      <Responsive
-  as={Grid}>
-      <Grid>
+ <Segment padded="very" raised color="blue">
 
-  <Dropdown placeholder='Add Widget' multiple fluid selection options={options} />
-<Message>
-<Header as='h1'>Content 1</Header>
-<p>
-This is a template for a simple marketing or informational website. It includes a large callout called a
-jumbotron and three supporting pieces of content. Use it as a starting point to create something more
-unique.
-</p>
-<Button color='blue'>Learn more &raquo;</Button>
-</Message>
-</Grid>
-</Responsive>
+  <Header as='h1'>Content 1</Header>
+
+
+  </Segment>
+
 );
 }
 }

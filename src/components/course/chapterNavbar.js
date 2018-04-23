@@ -12,12 +12,17 @@ class ChapterNavbar extends Component {
   }
   render() {
     return (
-        <Menu pointing secondary fluid size="mini" text stackable >
+        <Menu pointing secondary fluid size="mini" stackable>
         <Menu.Item onClick={this.props.toggleSidebar} className='header'>
-          <Icon  name="sidebar" />Modules
-        </Menu.Item>
+            <Icon.Group size="big">
+
+               <Icon  name='chevron left'/>
+
+             </Icon.Group>
+        Modules
+        </Menu.Item  >
           <Menu.Item name='Assignment 1' active={this.props.activeChapter == 'Assignment 1'}>
-              Assignment 1
+             Assignment 1
              <Icon name='pencil' color="yellow" inverted circular link
                onClick={() => this.handaddClick()} size="small"/>
              <Icon name='close' color="red" inverted circular link
@@ -34,7 +39,7 @@ class ChapterNavbar extends Component {
 
           </Menu.Item>
 
-          <Menu.Item name='Assignment 1' active={this.props.activeChapter == 'Assignment 1'}>
+          <Menu.Item name='Assignment 1' active>
               Assignment 1
              <Icon name='pencil' color="yellow" inverted circular link
                onClick={() => this.handaddClick()} size="small"/>
@@ -45,8 +50,9 @@ class ChapterNavbar extends Component {
 
           <Menu.Item>
             <Input size="small" placeholder='Add Chapter..' >
-                <input />
+
                   <Icon name='checkmark' color="teal" inverted circular link onClick={this.handaddClick}/>
+                  <input />
                <Icon name='add' color="green" inverted circular link onClick={this.handaddClick}/>
            </Input>
 

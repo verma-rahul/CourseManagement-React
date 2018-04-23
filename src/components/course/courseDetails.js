@@ -6,7 +6,7 @@ import { Button, Checkbox, Form, Menu, Segment, Input , Advertisement, Dropdown,
 Container, Header, Embed, Grid, Message, Table, Icon, Image} from 'semantic-ui-react'
 import {loadCourseDetails} from "../../actions/courseAction";
 import { connect } from 'react-redux';
-
+import styles from './courseDetails.css';
 class CourseDetails extends Component {
 
   componentWillMount(){
@@ -39,10 +39,8 @@ class CourseDetails extends Component {
     return (
       <Grid>
     <ModuleSidebar>
-       <Segment basic padded>
     <ChapterNavbar />
     <WidgetPage />
-      </Segment>
     </ModuleSidebar>
     </Grid>);
   }
