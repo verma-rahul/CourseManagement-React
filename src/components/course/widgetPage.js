@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Checkbox, Form, Menu, Segment, Input , Advertisement, Dropdown,
-Container, Header, Embed, Grid, Message, Table, Icon, Rail} from 'semantic-ui-react'
+Container, Header, Embed, Grid, Message, Table, Icon, Responsive} from 'semantic-ui-react'
 
 class WidgetPage extends Component {
   render() {
@@ -11,7 +11,9 @@ class WidgetPage extends Component {
       { key: 'TEXT', text: 'TEXT', value: 'TEXT' }
     ]
     return (
-      <div>
+      <Responsive
+  as={Grid}>
+      <Grid>
 
   <Dropdown placeholder='Add Widget' multiple fluid selection options={options} />
 <Message>
@@ -23,7 +25,8 @@ unique.
 </p>
 <Button color='blue'>Learn more &raquo;</Button>
 </Message>
-  </div>
+</Grid>
+</Responsive>
 );
 }
 }

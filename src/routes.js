@@ -25,6 +25,7 @@ checkLoggedIn(){
   return this.props.user
 }
     render() {
+      console.log(this.props)
       return (
   <Router>
     <div>
@@ -52,7 +53,7 @@ checkLoggedIn(){
 }
 
 const mapStateToProps = (state) => ({
-    user:state.user
+    user:state.app.user
 });
 
 export default connect(mapStateToProps, {})(AppRouter);

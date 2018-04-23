@@ -1,7 +1,8 @@
 import React,{Component } from 'react';
 import {Icon, Dropdown, Menu , Sidebar,
-  Segment, Button, Header,Input,Grid } from 'semantic-ui-react'
+  Segment, Button, Header,Input,Grid,Responsive } from 'semantic-ui-react'
 
+import styles from './moduleSidebar.css';
 import { connect } from 'react-redux';
 import {toggleSidebar} from "../../actions/commonAction";
 class ModuleSidebar extends Component {
@@ -22,6 +23,9 @@ class ModuleSidebar extends Component {
     activeItem: name
    })
  }
+ handaddClick(){
+    console.log("item ")
+ }
  handlePageClick = (e, { name }) =>
  {
    console.log("page")
@@ -36,28 +40,32 @@ class ModuleSidebar extends Component {
    const activeItem = this.state.activeItem
    const activePage = this.state.activePage
    return (
-     <div>
+     <Responsive>
+     <div className="full-height">
      <Sidebar.Pushable as={Segment} attached="bottom">
           <Sidebar as={Menu} animation='push' vertical visible={this.props.showSidebar}>
             <Menu.Item header>Sections</Menu.Item>
             <Menu.Item name='Assignments' active={activeItem === 'Assignments'} onClick={this.handleItemClick} />
             <Menu.Item name='Exams' active={activeItem === 'Exams'} onClick={this.handleItemClick} />
             <Menu.Item>
-                       <Input icon='add' placeholder='Enter Section...' />
-            </Menu.Item>
+                   <Input fluid size="mini"
+                      icon={<Icon name='add' inverted circular link onClick={this.handaddClick}/>}
+                      placeholder='Add Module..' />
+              </Menu.Item>
           </Sidebar>
           <Sidebar.Pusher>
             {this.props.children}
           </Sidebar.Pusher>
         </Sidebar.Pushable>
      </div>
+   </Responsive>
    )
 }
 }
 
 const mapStateToProps = (state) => ({
     chapter: state.chapter,
-    showSidebar:state.showSidebar
+    showSidebar: state.app.showSidebar
 });
 
 export default connect(mapStateToProps, {toggleSidebar})(ModuleSidebar);
