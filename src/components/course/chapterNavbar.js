@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Checkbox, Form, Menu, Segment, Input , Advertisement, Dropdown,
-Container, Header, Embed, Grid, Message, Table, Icon, Rail} from 'semantic-ui-react'
+Container, Header, Embed, Grid, Message, Table, Icon, Rail, Loader} from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import {toggleSidebar} from "../../actions/commonAction";
 import styles from './chapterNavbar.css';
@@ -12,13 +12,10 @@ class ChapterNavbar extends Component {
   }
   render() {
     return (
-        <Menu pointing secondary fluid size="mini" stackable>
+        <Menu pointing secondary fluid size="mini" stackable >
         <Menu.Item onClick={this.props.toggleSidebar} className='header'>
-            <Icon.Group size="big">
+               <Icon size="big" name='chevron left'/>
 
-               <Icon  name='chevron left'/>
-
-             </Icon.Group>
         Modules
         </Menu.Item  >
           <Menu.Item name='Assignment 1' active={this.props.activeChapter == 'Assignment 1'}>
@@ -57,6 +54,18 @@ class ChapterNavbar extends Component {
            </Input>
 
        </Menu.Item>
+       <Menu.Item >
+
+             <Loader active inline='centered'/>
+           </Menu.Item>
+             <Menu.Item disabled name="failed" inverted>
+                 <Icon invereted color="red"  name='warning'  />
+                 Failed
+                </Menu.Item>
+             <Menu.Item disabled name="notSelected" inverted>
+                  <Icon size="big" color="yellow" name='chevron left'/>
+                  select Module
+                   </Menu.Item>
 
         </Menu>
     );
@@ -68,14 +77,9 @@ const mapStateToProps = (state) => ({
     showSidebar:state.app.showSidebar
 });
 
-export default connect(mapStateToProps, {toggleSidebar})(ChapterNavbar);
-
-
 // Another way to Map actions to props
 // const mapDispatchToProps = (dispatch) => ({
 //     onRollDice: () => dispatch(rollDice())
 // });
 
-// <Input  size="mini"
-//    icon={<Icon name='add' inverted circular link onClick={this.handaddClick}/>}
-//    placeholder='Add chapter..' />
+export default connect(mapStateToProps, {toggleSidebar})(ChapterNavbar);

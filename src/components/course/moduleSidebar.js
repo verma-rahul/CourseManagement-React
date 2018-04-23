@@ -1,6 +1,6 @@
 import React,{Component } from 'react';
 import {Icon, Dropdown, Menu , Sidebar,
-  Segment, Button, Header,Input,Grid,Responsive,Label } from 'semantic-ui-react'
+  Segment, Button, Header,Input,Grid,Responsive,Label,Tab,Loader, Dimmer } from 'semantic-ui-react'
 
 import styles from './moduleSidebar.css';
 import { connect } from 'react-redux';
@@ -61,21 +61,31 @@ class ModuleSidebar extends Component {
 
 
    return (
-     <div className=" full-height-width">
+     <div className="full-height-width">
      <Sidebar.Pushable as={Segment} attached="bottom" >
           <Sidebar as={Menu} animation='push' vertical
             visible={this.props.showSidebar} inverted color="blue"
             activeIndex={this.props.active}>
             {modulesMenuItems}
-                 <Menu.Item>
-                   <Input fluid size="mini" placeholder='Add Module..' >
+            <Menu.Item>
+              <Input fluid size="mini" placeholder='Add Module..' >
 
-                         <Icon name='checkmark' color="teal" inverted circular link onClick={this.handaddClick}/>
-                         <input />
-                      <Icon name='add' color="green" inverted circular link onClick={this.handaddClick}/>
-                  </Input>
+                    <Icon name='checkmark' color="teal" inverted circular link onClick={this.handaddClick}/>
+                    <input />
+                 <Icon name='add' color="green" inverted circular link onClick={this.handaddClick}/>
+             </Input>
 
-              </Menu.Item>
+            </Menu.Item>
+
+            <Menu.Item >
+                <Loader active inline='centered' inverted/>
+                </Menu.Item>
+                <Menu.Item  name="failed" inverted>
+                    <Icon invereted color="red" size="big" name='warning' />
+                    Failed
+                   </Menu.Item>
+    
+
           </Sidebar>
           <Sidebar.Pusher>
             <Segment basic>
@@ -98,7 +108,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {loadModules})(ModuleSidebar);
-
-// <Menu.Item disabled>
-//         Link
-//     </Menu.Item>

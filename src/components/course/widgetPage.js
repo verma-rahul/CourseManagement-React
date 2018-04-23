@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Checkbox, Form, Menu, Segment, Input , Advertisement, Dropdown,
-Container, Header, Embed, Grid, Message, Table, Icon, Responsive} from 'semantic-ui-react'
+Container, Header, Embed, Grid, Message, Table, Icon, Image,Tab } from 'semantic-ui-react'
 
 class WidgetPage extends Component {
   render() {
@@ -11,13 +11,39 @@ class WidgetPage extends Component {
       { key: 'TEXT', text: 'TEXT', value: 'TEXT' }
     ]
     return (
- <Segment padded="very" raised color="blue">
+ <Segment padded raised color="blue">
+   <Segment basic textAlign="center">
+      <Header as='h1' centered>Example Loding</Header>
+     <Icon loading name='spinner'size='huge' />
+   </Segment>
+   <Segment basic textAlign="center">
+      <Header as='h1' centered>Example Select Chapter First..</Header>
+     <Icon name='chevron up'size='huge' color="yellow"/>
+   </Segment>
 
-  <Header as='h1'>Content 1</Header>
+
+   <Segment basic textAlign="center">
+        <Header as='h1' centered>Example Failed</Header>
+     <Icon.Group size='huge'>
+      <Icon loading name='spinner' />
+      <Icon invereted color="red"  name='warning'  />
+    </Icon.Group>
+   </Segment>
+<Segment basic >
+      <Header as='h1'>Example Image</Header>
+<Image fluid centered  src='http://cdn.newsapi.com.au/image/v1/eb2c300a22b064cb3843313360341728' size='medium' rounded />
+</Segment>
+<Segment basic size="mini" >
+ <Header as='h1'>Example Video</Header>
+   <Embed
+      id='O6Xo21L0ybE'
+      source='youtube'
+      aspectRatio="21:9"
+    />
+ </Segment>
 
 
-  </Segment>
-
+ </Segment>
 );
 }
 }
