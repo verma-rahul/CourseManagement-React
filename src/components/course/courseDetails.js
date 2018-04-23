@@ -12,9 +12,7 @@ class CourseDetails extends Component {
   componentWillMount(){
     this.props.loadCourseDetails()
   }
-  loadCourseDetails(){
-    console.log("In loadCourseDetails")
-  }
+
   render() {
     const CoursePageLoading =  (
       <Grid padded >
@@ -41,7 +39,8 @@ class CourseDetails extends Component {
   <ModuleSidebar>
   <Grid padded >
         <Grid.Row >
-   <Segment padded='very' basic>
+
+   <Segment padded basic>
     <ChapterNavbar />
     <WidgetPage />
   </Segment>

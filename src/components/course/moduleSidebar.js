@@ -40,25 +40,23 @@ class ModuleSidebar extends Component {
    const activeItem = this.state.activeItem
    const activePage = this.state.activePage
    return (
-     <Responsive>
      <div className="full-height">
-     <Sidebar.Pushable as={Segment} attached="bottom">
-          <Sidebar as={Menu} animation='push' vertical visible={this.props.showSidebar}>
+     <Sidebar.Pushable as={Segment} attached="bottom" >
+          <Sidebar as={Menu} animation='push' vertical visible={this.props.showSidebar} inverted color="blue">
             <Menu.Item header>Sections</Menu.Item>
             <Menu.Item name='Assignments' active={activeItem === 'Assignments'} onClick={this.handleItemClick} />
             <Menu.Item name='Exams' active={activeItem === 'Exams'} onClick={this.handleItemClick} />
             <Menu.Item>
                    <Input fluid size="mini"
-                      icon={<Icon name='add' inverted circular link onClick={this.handaddClick}/>}
+                      icon={<Icon name='add' color="green" inverted circular link onClick={this.handaddClick}/>}
                       placeholder='Add Module..' />
               </Menu.Item>
           </Sidebar>
-          <Sidebar.Pusher>
-            {this.props.children}
+          <Sidebar.Pusher children={this.props.children}>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
      </div>
-   </Responsive>
+
    )
 }
 }
@@ -69,3 +67,12 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {toggleSidebar})(ModuleSidebar);
+//
+// modulesLoading
+// activeModule
+// buttons
+// modules
+// //
+// <Menu.Item disabled>
+//         Link
+//     </Menu.Item>

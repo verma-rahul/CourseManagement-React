@@ -12,16 +12,14 @@ class ChapterNavbar extends Component {
   }
   render() {
     return (
-        <Menu pointing secondary fluid >
-        <Menu.Item onClick={this.props.toggleSidebar}>
+        <Menu pointing secondary fluid size="mini" text stackable >
+        <Menu.Item onClick={this.props.toggleSidebar} className='header'>
           <Icon  name="sidebar" />Modules
         </Menu.Item>
           <Menu.Item name='Assignment 1' active={this.props.activeChapter == 'Assignment 1'}/>
           <Menu.Item name='Assignment 2' active={this.props.activeChapter == 'Assignment 2'}/>
           <Menu.Item name='Assignment 3' active={this.props.activeChapter == 'Assignment 3'}/>
-            <Input  size="mini"
-               icon={<Icon name='add' inverted circular link onClick={this.handaddClick}/>}
-               placeholder='Add chapter..' />
+
         </Menu>
     );
   }
@@ -39,3 +37,7 @@ export default connect(mapStateToProps, {toggleSidebar})(ChapterNavbar);
 // const mapDispatchToProps = (dispatch) => ({
 //     onRollDice: () => dispatch(rollDice())
 // });
+
+// <Input  size="mini"
+//    icon={<Icon name='add' inverted circular link onClick={this.handaddClick}/>}
+//    placeholder='Add chapter..' />
