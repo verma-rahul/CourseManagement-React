@@ -14,8 +14,8 @@ class ModuleSidebar extends Component {
   }
  render() {
    console.log(this.props)
-  const selectedModuleName=( Object.keys(this.props.selected).length === 0)?
-                                    "":this.props.selected.name
+   const addShow= (Object.keys(this.props.selected).length === 0)
+   const selectedModuleName=( addShow)?"":this.props.selected.name
 
    const modulesMenuItems= this.props.modulesList.map((module) =>
    (<Menu.Item name={module.name} active={this.props.active == module.id}
@@ -41,12 +41,12 @@ class ModuleSidebar extends Component {
         defaultValue={selectedModuleName}
         placeholder="Enter Module Name...">
        <input />
-       { !(Object.keys(this.props.selected).length === 0)
+       { (!addShow)
           && <Icon name='checkmark' color="teal"
           inverted circular link
           onClick={() =>
             this.props.updateModule(this.props.selected,this.refs.inputModule.inputRef.value)}/>}
-        { Object.keys(this.props.selected).length === 0
+        { addShow
           && <Icon name='add' color="green"
           inverted circular link
           onClick={() => this.props.addModule(this.refs.inputModule.inputRef.value)} />}
