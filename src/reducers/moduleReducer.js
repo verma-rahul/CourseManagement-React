@@ -16,6 +16,11 @@ switch(action.type) {
  case TYPES.MODULE_MAKE_ACTIVE :
  return {...state,active:action.payload}
  break;
+
+ case TYPES.MODULE_SELECTED:
+ return {...state,selected:action.payload}
+ break;
+ 
  default :
  return state
  }
