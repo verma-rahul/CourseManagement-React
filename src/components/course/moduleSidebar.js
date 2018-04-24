@@ -1,6 +1,6 @@
 import React,{Component } from 'react';
 import {Icon, Dropdown, Menu , Sidebar,
-  Segment, Button, Header,Input,Grid,Responsive,Label,Tab,Loader, Dimmer } from 'semantic-ui-react'
+  Segment, Button, Header,Input,Grid,Label,Tab,Loader } from 'semantic-ui-react'
 
 import styles from './moduleSidebar.css';
 import { connect } from 'react-redux';
@@ -16,13 +16,12 @@ class ModuleSidebar extends Component {
    console.log(this.props)
   const selectedModuleName=( Object.keys(this.props.selected).length === 0)?
                                     "":this.props.selected.name
-   console.log(selectedModuleName)
 
-   console.log(!(Object.keys(this.props.selected).length === 0))
    const modulesMenuItems= this.props.modulesList.map((module) =>
    (<Menu.Item name={module.name} active={this.props.active == module.id}
     key={module.id}
-    onClick={(e) => ((e.target.nodeName=="A")?this.props.makeActiveModule(module.id):null)}>
+    onClick={(e) =>
+     ((e.target.nodeName=="A")?this.props.makeActiveModule(module.id):null)}>
       {module.name}
     <Icon name='pencil' color="yellow" inverted circular link
         size="small"
@@ -36,21 +35,21 @@ class ModuleSidebar extends Component {
  </Menu.Item>));
 
  var inputMenuItem= <Menu.Item>
- <Input fluid size="mini" placeholder='Add Module..'>
-
-       <input
-         ref={input => this.newModuleInput=input}
-         key={selectedModuleName||1}
-         defaultValue={selectedModuleName}/>
+ <Input fluid size="mini"
+        ref="inputModule"
+        key={selectedModuleName||"new"}
+        defaultValue={selectedModuleName}
+        placeholder="Enter Module Name...">
+       <input />
        { !(Object.keys(this.props.selected).length === 0)
           && <Icon name='checkmark' color="teal"
           inverted circular link
           onClick={() =>
-            this.props.updateModule(this.props.selected,this.newModuleInput.value)}/>}
+            this.props.updateModule(this.props.selected,this.refs.inputModule.inputRef.value)}/>}
         { Object.keys(this.props.selected).length === 0
           && <Icon name='add' color="green"
           inverted circular link
-          onClick={() => this.props.addModule(this.newModuleInput.value)} />}
+          onClick={() => this.props.addModule(this.refs.inputModule.inputRef.value)} />}
   </Input>
  </Menu.Item>
 
@@ -98,6 +97,3 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps,
   {loadModules,makeActiveModule,updateModule,addModule,
   selectModule,deleteModule})(ModuleSidebar);
-
-
-// this.props.selected.length===0?
