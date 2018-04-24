@@ -16,9 +16,14 @@ const INIT_WIDGET_PAGE_STATE = {
  widgets:[]
 }
 const INIT_APP_STATE = {
+   // to be changed later
  showSidebar:true,
+
  activePage:"home",
+  // to be changed later
  user:true,
+ // to be changed later
+ course:{id:1,name:"A"},
  courseDetail:[],
  courseloading:false,
  courseloadingFailed:false

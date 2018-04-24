@@ -46,7 +46,7 @@ export const loadModules = (CourseId=1) => ((dispatch, getState) =>
 {
       console.log("in loadModules, STARTED")
       dispatch(modulesLoadStarted());
-      ModuleAsyncApis.getModulesByCourseId(CourseId)
+      ModuleAsyncApis.getModulesByCourseId(getState().app.course.id)
       .then(response => {
           console.log("in loadModules, FETCHED")
           dispatch(modulesLoadSuccess(response.data));
@@ -57,33 +57,33 @@ export const loadModules = (CourseId=1) => ((dispatch, getState) =>
 })
 
 
-export const updateModule = (module,newModuleName) => ((dispatch, getState) =>
+export const updateModule = (moduleId,newModule) => ((dispatch, getState) =>
 {
-      console.log("in updateModule, STARTED",module,newModuleName)
-      // dispatch(modulesLoadStarted());
-      // ModuleAsyncApis.getModulesByCourseId(CourseId)
-      // .then(response => {
-      //     console.log("in loadModules, FETCHED")
-      //     dispatch(modulesLoadSuccess(response.data));
-      // })
-      // .catch(err => {
-      //   console.log("in loadModules, FAILED")
-      //   dispatch(modulesLoadFailure())  })
+      console.log("in updateModule, STARTED",moduleId,newModule)
+      dispatch(modulesLoadStarted());
+      ModuleAsyncApis.updateModule(moduleId,newModule)
+      .then(response => {
+        console.log("val updated", response.data)
+         dispatch(loadModules())
+      })
+      .catch(err => {
+        console.log("in updateModules, FAILED",err)
+        dispatch(modulesLoadFailure())  })
 })
 
 
-export const addModule= (moduleName) => ((dispatch, getState) =>
+export const addModule= (module) => ((dispatch, getState) =>
 {
-      console.log("in addModule, STARTED",moduleName)
-      // dispatch(modulesLoadStarted());
-      // ModuleAsyncApis.getModulesByCourseId(CourseId)
-      // .then(response => {
-      //     console.log("in loadModules, FETCHED")
-      //     dispatch(modulesLoadSuccess(response.data));
-      // })
-      // .catch(err => {
-      //   console.log("in loadModules, FAILED")
-      //   dispatch(modulesLoadFailure())  })
+  console.log("in addModule, STARTED",module)
+  dispatch(modulesLoadStarted());
+  ModuleAsyncApis.addModule(getState().app.course.id,module)
+  .then(response => {
+    console.log("val added", response.data)
+     dispatch(loadModules())
+  })
+  .catch(err => {
+    console.log("in addModules, FAILED",err)
+    dispatch(modulesLoadFailure())  })
 })
 
 export const selectModule= (module)  =>
@@ -95,17 +95,16 @@ export const selectModule= (module)  =>
       })
 }
 
-export const deleteModule= (module) => ((dispatch, getState) =>
+export const deleteModule= (moduleId) => ((dispatch, getState) =>
 {
-      console.log("in addModule, deleteModule",module)
-
-      // dispatch(modulesLoadStarted());
-      // ModuleAsyncApis.getModulesByCourseId(CourseId)
-      // .then(response => {
-      //     console.log("in loadModules, FETCHED")
-      //     dispatch(modulesLoadSuccess(response.data));
-      // })
-      // .catch(err => {
-      //   console.log("in loadModules, FAILED")
-      //   dispatch(modulesLoadFailure())  })
+      console.log("in addModule, deleteModule",moduleId)
+      dispatch(modulesLoadStarted());
+      ModuleAsyncApis.deleteModule(moduleId)
+      .then(response => {
+        console.log("val del", response)
+         dispatch(loadModules())
+      })
+      .catch(err => {
+        console.log("in del, FAILED",err)
+        dispatch(modulesLoadFailure())  })
 })

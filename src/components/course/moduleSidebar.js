@@ -30,7 +30,7 @@ class ModuleSidebar extends Component {
     <Icon name='close' color="red" inverted circular link
           size="small"
           onClick={() =>
-            this.props.deleteModule(module)}/>
+            this.props.deleteModule(module.id)}/>
 
  </Menu.Item>));
 
@@ -45,11 +45,13 @@ class ModuleSidebar extends Component {
           && <Icon name='checkmark' color="teal"
           inverted circular link
           onClick={() =>
-            this.props.updateModule(this.props.selected,this.refs.inputModule.inputRef.value)}/>}
+            this.props.updateModule(this.props.selected.id,
+              {...this.props.selected,name:this.refs.inputModule.inputRef.value})}/>}
         { addShow
           && <Icon name='add' color="green"
           inverted circular link
-          onClick={() => this.props.addModule(this.refs.inputModule.inputRef.value)} />}
+          onClick={() =>{this.props.addModule({name:this.refs.inputModule.inputRef.value})
+                         this.refs.inputModule.inputRef.value=""}}  />}
   </Input>
  </Menu.Item>
 
