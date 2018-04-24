@@ -1,12 +1,16 @@
 const INIT_CHAPTER_STATE = {
- activeChapter:"",
- chapters:[]
+ loading:false,
+ active:null,
+ chaptersList:[],
+ failed:false,
+ selected:null
 }
 const INIT_MODULE_STATE = {
  loading:false,
- active:"",
+ active:null,
  modulesList:[],
- failed:false
+ failed:false,
+ selected:null
 }
 const INIT_WIDGET_PAGE_STATE = {
  widgets:[]

@@ -13,25 +13,25 @@ class WidgetPage extends Component {
     return (
  <Segment padded raised color="blue">
    <Segment basic textAlign="center">
-      <Header as='h1' centered>Example Loding</Header>
+      <Header as='h1'>Example Loding</Header>
      <Icon loading name='spinner'size='huge' />
    </Segment>
    <Segment basic textAlign="center">
-      <Header as='h1' centered>Example Select Chapter First..</Header>
+      <Header as='h1'>Example Select Chapter First..</Header>
      <Icon name='chevron up'size='huge' color="yellow"/>
    </Segment>
 
 
    <Segment basic textAlign="center">
-        <Header as='h1' centered>Example Failed</Header>
+        <Header as='h1' >Example Failed</Header>
      <Icon.Group size='huge'>
       <Icon loading name='spinner' />
-      <Icon invereted color="red"  name='warning'  />
+      <Icon color="red"  name='warning'  />
     </Icon.Group>
    </Segment>
 <Segment basic >
       <Header as='h1'>Example Image</Header>
-<Image fluid centered  src='http://cdn.newsapi.com.au/image/v1/eb2c300a22b064cb3843313360341728' size='medium' rounded />
+<Image centered  src='http://cdn.newsapi.com.au/image/v1/eb2c300a22b064cb3843313360341728' size='medium' rounded />
 </Segment>
 <Segment basic size="mini" >
  <Header as='h1'>Example Video</Header>

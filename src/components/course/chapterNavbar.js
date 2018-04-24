@@ -58,11 +58,11 @@ class ChapterNavbar extends Component {
 
              <Loader active inline='centered'/>
            </Menu.Item>
-             <Menu.Item disabled name="failed" inverted>
-                 <Icon invereted color="red"  name='warning'  />
+             <Menu.Item disabled name="failed" >
+                 <Icon color="red"  name='warning'  />
                  Failed
                 </Menu.Item>
-             <Menu.Item disabled name="notSelected" inverted>
+             <Menu.Item disabled name="notSelected">
                   <Icon size="big" color="yellow" name='chevron left'/>
                   select Module
                    </Menu.Item>

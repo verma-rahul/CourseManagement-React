@@ -4,7 +4,7 @@ import {Icon, Dropdown, Menu , Sidebar,
 
 import styles from './moduleSidebar.css';
 import { connect } from 'react-redux';
-import {loadModules} from "../../actions/moduleAction";
+import {loadModules,makeActiveModule} from "../../actions/moduleAction";
 
 class ModuleSidebar extends Component {
 
@@ -44,13 +44,14 @@ class ModuleSidebar extends Component {
 }
 
  render() {
+
    console.log(this.props)
    const activeItem = this.state.activeItem
    const activePage = this.state.activePage
    const modulesMenuItems= this.props.modulesList.map((module) =>
-   (<Menu.Item name={module.name} index={module.id}
+   (<Menu.Item name={module.name} active={this.props.active == module.id}
     key={module.id}
-    onClick={(e) => ((e.target.nodeName=="A")?this.handdisplyClick(module.id):null)}>
+    onClick={(e) => ((e.target.nodeName=="A")?this.props.makeActiveModule(module.id):null)}>
       {module.name}
     <Icon name='pencil' color="yellow" inverted circular link
       onClick={() => this.handaddClick(module.id)} size="small"/>
@@ -59,33 +60,32 @@ class ModuleSidebar extends Component {
 
  </Menu.Item>));
 
+ const inputField=
+ <Menu.Item>
+ <Input fluid size="mini" placeholder='Add Module..' >
+   <Icon name='checkmark' color="teal" inverted circular link onClick={this.handaddClick}/>
+       <input />
+    <Icon name='add' color="green" inverted circular link onClick={this.handaddClick}/>
+  </Input>
+</Menu.Item>
+const lodingMenuItem= <Menu.Item >
+                      <Loader active inline='centered' />
+                      </Menu.Item>
 
+const failedMenuItem=<Menu.Item  name="failed" >
+                      <Icon color="red" size="big" name='warning' />
+                        Failed Loding
+                      </Menu.Item>
    return (
      <div className="full-height-width">
      <Sidebar.Pushable as={Segment} attached="bottom" >
           <Sidebar as={Menu} animation='push' vertical
-            visible={this.props.showSidebar} inverted color="blue"
-            activeIndex={this.props.active}>
-            {modulesMenuItems}
-            <Menu.Item>
-              <Input fluid size="mini" placeholder='Add Module..' >
+            visible={this.props.showSidebar} inverted color="blue">
+            { !this.props.loading && !this.props.failed && modulesMenuItems  }
 
-                    <Icon name='checkmark' color="teal" inverted circular link onClick={this.handaddClick}/>
-                    <input />
-                 <Icon name='add' color="green" inverted circular link onClick={this.handaddClick}/>
-             </Input>
-
-            </Menu.Item>
-
-            <Menu.Item >
-                <Loader active inline='centered' inverted/>
-                </Menu.Item>
-                <Menu.Item  name="failed" inverted>
-                    <Icon invereted color="red" size="big" name='warning' />
-                    Failed
-                   </Menu.Item>
-    
-
+            { this.props.loading && lodingMenuItem }
+            { this.props.failed && failedMenuItem}
+            {inputField}
           </Sidebar>
           <Sidebar.Pusher>
             <Segment basic>
@@ -107,4 +107,4 @@ const mapStateToProps = (state) => ({
     failed:state.module.failed
 });
 
-export default connect(mapStateToProps, {loadModules})(ModuleSidebar);
+export default connect(mapStateToProps, {loadModules,makeActiveModule})(ModuleSidebar);
