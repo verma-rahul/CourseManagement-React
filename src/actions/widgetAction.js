@@ -11,6 +11,10 @@ export const openForm =() => ({
   type:TYPES.OPEN_WIDGET_FORM
 })
 
+export const closeForm =() => ({
+  type:TYPES.CLOSE_WIDGET_FORM
+})
+
 export const selectWidget = (widget)  =>
 {
     console.log(widget)

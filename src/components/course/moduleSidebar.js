@@ -45,8 +45,7 @@ class ModuleSidebar extends Component {
           && <Icon name='checkmark' color="teal"
           inverted circular link
           onClick={() =>
-            this.props.updateModule(this.props.selected.id,
-              {...this.props.selected,name:this.refs.inputModule.inputRef.value})}/>}
+            this.props.updateModule(this.props.selected.id,{...this.props.selected,name:this.refs.inputModule.inputRef.value})}/>}
         { addShow
           && <Icon name='add' color="green"
           inverted circular link

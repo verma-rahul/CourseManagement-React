@@ -24,6 +24,10 @@ switch(action.type) {
  return {...state,showForm:true}
  break;
 
+ case TYPES.CLOSE_WIDGET_FORM:
+ return {...state,showForm:false,selected:{}}
+ break;
+
  default :
  return state
  }

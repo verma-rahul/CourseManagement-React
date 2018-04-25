@@ -4,7 +4,9 @@ Container, Header, Embed, Grid, Message, Table, Icon, Image,Tab ,Modal} from 'se
 import { connect } from 'react-redux';
 import {} from "../../actions/widgetAction"
 import {WIDGET_OPTIONS} from "../../constants/common"
-import {openForm} from "../../actions/widgetAction"
+import {openForm,closeForm,
+        selectWidget,deleteWidget,
+        updateWidget,addWidget} from "../../actions/widgetAction"
 class WidgetPage extends Component {
   render() {
     this.showForm=false
@@ -52,22 +54,38 @@ const addButton= <Segment basic textAlign="center">
               Add
             </Button>
           </Segment>
+const cancelButton= <Segment basic textAlign="center">
+                      <Button fluid color="red" onClick={this.props.closeForm}>
+                        cancel
+                      </Button>
+                    </Segment>
   const updateButton= <Segment basic textAlign="center">
-            <Button fluid color="teal" onClick={()=>this.props.updateWidget(this.props.selected.Id,this.refs.form,)}>
+            <Button fluid color="teal" onClick={()=>this.props.updateWidget(this.props.selected.id,this.props.selected)}>
               update widget
             </Button>
               </Segment>
  const WidgetsItemList = this.props.widgetsList.map((widget) =>(
-   <Segment basic>
-    <ul key={widget.id}>
-      {widget.name}
-    </ul>
-  </Segment>))
-
-
+  <Grid.Row key={widget.id}>
+   <Grid.Column width={14}>
+     <Header as='h2'>{widget.name}</Header>
+     <Image  src='http://cdn.newsapi.com.au/image/v1/eb2c300a22b064cb3843313360341728' size='medium' rounded />
+   </Grid.Column>
+   <Grid.Column width={2}>
+     <Icon name='pencil' color="yellow" inverted circular link
+         size="small"
+         onClick={() =>{
+           this.props.selectWidget(widget)
+           this.props.openForm()
+         }}/>
+     <Icon name='close' color="red" inverted circular link
+           size="small"
+           onClick={() =>
+             this.props.deleteWidget(widget.id)}/>
+   </Grid.Column>
+ </Grid.Row>))
 
 var formElement=<Form>
-    <Form.Group widths='equal' ref="form">
+    <Form.Group widths='equal' >
       <Form.Select required fluid label='Type' options={WIDGET_OPTIONS} placeholder='Widget Type' />
       <Form.Input key={selectedWidget.name||"new"}
           defaultValue={selectedWidget.name}
@@ -81,23 +99,32 @@ var formElement=<Form>
     return (
  <Segment padded raised color="blue" >
 
+
    { (this.props.moduleId!=null) && (this.props.chapterId!=null)
      &&!this.props.loading && !this.props.failed &&
         this.props.showForm && formElement}
 
   { (this.props.moduleId!=null) && (this.props.chapterId!=null)
-          &&!this.props.loading && !this.props.failed &&!this.props.showForm
-           && showButton}
+          &&!this.props.loading && !this.props.failed &&
+          !this.props.showForm && showButton}
 
   { (this.props.moduleId!=null) && (this.props.chapterId!=null)
-  &&!this.props.loading && !this.props.failed &&this.props.showForm && addButton}
+  &&!this.props.loading && !this.props.failed &&this.props.showForm &&
+   !updateShow && addButton }
 
   { (this.props.moduleId!=null) && (this.props.chapterId!=null)
-    &&!this.props.loading && !this.props.failed &&updateShow && updateButton}
+      &&!this.props.loading && !this.props.failed && updateShow && updateButton}
+
+  { (this.props.moduleId!=null) && (this.props.chapterId!=null)
+  &&!this.props.loading && !this.props.failed &&this.props.showForm &&
+   cancelButton}
+
 
    { (this.props.moduleId!=null) && (this.props.chapterId!=null)
      &&!this.props.loading && !this.props.failed && !this.props.showForm &&
-      WidgetsItemList }
+     <Grid  divided>
+    {WidgetsItemList}
+     </Grid>   }
 
    { (this.props.chapterId!=null) && this.props.loading && loadingItem }
 
@@ -106,7 +133,6 @@ var formElement=<Form>
    { (this.props.moduleId==null) && noModuleSelectedItem}
 
     { (this.props.chapterId==null) && noChapterSelectedItem}
-
  </Segment>
 
 /*{see help.js on how to use widgets}
@@ -125,8 +151,12 @@ const mapStateToProps = (state) => ({
   showForm:state.widget.showForm
 });
 
-export default connect(mapStateToProps, {openForm})(WidgetPage);
+export default connect(mapStateToProps, {openForm,closeForm,
+                                         selectWidget,deleteWidget,
+                                         updateWidget,addWidget})(WidgetPage);
 // Another way to Map actions to props
 // const mapDispatchToProps = (dispatch) => ({
 //     onRollDice: () => dispatch(rollDice())
 // });
+
+  //
