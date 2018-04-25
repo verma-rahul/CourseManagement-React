@@ -9,10 +9,6 @@ import { connect } from 'react-redux';
 import styles from './courseDetails.css';
 class CourseDetails extends Component {
 
-  componentWillMount(){
-    // this.props.loadCourseDetails()
-  }
-
   render() {
     const CoursePageLoading =  (
       <Grid padded >

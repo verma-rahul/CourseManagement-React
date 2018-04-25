@@ -14,11 +14,11 @@ const INIT_MODULE_STATE = {
 }
 const INIT_WIDGET_PAGE_STATE = {
   loading:false,
-  active:null,
   widgetsList:[],
   failed:false,
   selected:{}
 }
+
 const INIT_APP_STATE = {
    // to be changed later
  showSidebar:true,
