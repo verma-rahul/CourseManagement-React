@@ -19,19 +19,23 @@ const makeActiveModuleStarted=  (moduleId) =>({
   payload:moduleId
 })
 
-const chaptersLoadSuccess = (data) =>  ({
+export const chaptersLoadSuccess = (data) =>  ({
   type: TYPES.CHAPTERS_LOAD_SUCCESS,
   payload:data
 })
 
-const chaptersLoadFailure = () => ({
+export const chaptersLoadFailure = () => ({
   type: TYPES.CHAPTERS_LOAD_FAILED,
+})
+export const chaptersLoadStarted = () => ({
+  type: TYPES.CHAPTERS_LOAD_START,
 })
 
 export const makeActiveModule = (moduleId) => ((dispatch, getState) =>
 {
       console.log("in makeActiveModule, STARTED",getState())
       dispatch(makeActiveModuleStarted(moduleId));
+      dispatch(chaptersLoadStarted());
       ChapterAsyncApis.getChaptersByModuleId(moduleId).then(response => {
           console.log("in makeActiveModule chapters Fectch, FETCHED")
           dispatch(chaptersLoadSuccess(response.data));

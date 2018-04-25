@@ -1,16 +1,18 @@
 import TYPES from "../constants/actionTypes"
 import STATES from "../constants/storeStates"
 
-export const moduleReducer = (state = STATES.INIT_MODULE_STATE, action) =>{
+export const ModuleReducer = (state = STATES.INIT_MODULE_STATE, action) =>{
 switch(action.type) {
  case TYPES.MODULES_LOAD_START :
- return {...state, loading: true,failed: false,modulesList: [],selected:{}}
+ return {...state, loading: true,failed: false,modulesList: [],selected:{},active:null}
  break;
+
  case TYPES.MODULES_LOAD_SUCCESS :
- return {...state, modulesList: action.payload,loading: false,selected:{}}
+ return {...state, modulesList: action.payload,loading: false,selected:{},active:null}
  break;
+
  case TYPES.MODULES_LOAD_FAILED :
- return {...state, failed: true,loading: false,modulesList: [],selected:{}}
+ return {...state, failed: true,loading: false,modulesList: [],selected:{},active:null}
  break;
 
  case TYPES.MODULE_MAKE_ACTIVE :

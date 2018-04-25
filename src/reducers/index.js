@@ -1,9 +1,11 @@
-import {appStateReducer} from "../reducers/commonReducer"
+import {AppStateReducer} from "../reducers/commonReducer"
 import {combineReducers} from "redux";
-import {chapterReducer} from "../reducers/chapterReducer"
-import {moduleReducer} from "../reducers/moduleReducer"
+import {ChapterReducer} from "../reducers/chapterReducer"
+import {ModuleReducer} from "../reducers/moduleReducer"
+import {WidgetReducer} from "../reducers/widgetReducer"
 export const rootReducer = combineReducers({
-    app:appStateReducer,
-    chapter:chapterReducer,
-    module:moduleReducer
+    app:AppStateReducer,
+    chapter:ChapterReducer,
+    module:ModuleReducer,
+    widget:WidgetReducer
 });

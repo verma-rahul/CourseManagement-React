@@ -3,7 +3,7 @@ const INIT_CHAPTER_STATE = {
  active:null,
  chaptersList:[],
  failed:false,
-  selected:{}
+ selected:{}
 }
 const INIT_MODULE_STATE = {
  loading:false,
@@ -13,7 +13,11 @@ const INIT_MODULE_STATE = {
  selected:{}
 }
 const INIT_WIDGET_PAGE_STATE = {
- widgets:[]
+  loading:false,
+  active:null,
+  widgetsList:[],
+  failed:false,
+  selected:{}
 }
 const INIT_APP_STATE = {
    // to be changed later

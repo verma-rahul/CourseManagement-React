@@ -1,7 +1,7 @@
 import TYPES from "../constants/actionTypes"
 import STATES from "../constants/storeStates"
 
-export const appStateReducer = (state = STATES.INIT_APP_STATE, action) =>{
+export const AppStateReducer = (state = STATES.INIT_APP_STATE, action) =>{
 switch(action.type) {
  case TYPES.TOGGLE_SIDEBAR :
  return {...state, showSidebar: !state.showSidebar}
