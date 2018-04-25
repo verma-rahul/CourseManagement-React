@@ -20,6 +20,10 @@ switch(action.type) {
  return {...state,selected:action.payload}
  break;
 
+ case TYPES.OPEN_WIDGET_FORM:
+ return {...state,showForm:true}
+ break;
+
  default :
  return state
  }

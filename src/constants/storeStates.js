@@ -16,7 +16,8 @@ const INIT_WIDGET_PAGE_STATE = {
   loading:false,
   widgetsList:[],
   failed:false,
-  selected:{}
+  selected:{},
+  showForm:false
 }
 
 const INIT_APP_STATE = {

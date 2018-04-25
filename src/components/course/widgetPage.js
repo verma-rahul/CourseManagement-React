@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { Button, Checkbox, Form, Menu, Segment, Input , Advertisement, Dropdown,
-Container, Header, Embed, Grid, Message, Table, Icon, Image,Tab } from 'semantic-ui-react'
+Container, Header, Embed, Grid, Message, Table, Icon, Image,Tab ,Modal} from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import {} from "../../actions/widgetAction"
+import {WIDGET_OPTIONS} from "../../constants/common"
+import {openForm} from "../../actions/widgetAction"
 class WidgetPage extends Component {
   render() {
+    this.showForm=false
     console.log(this.props)
+    const updateShow= !(Object.keys(this.props.selected).length === 0)
+    const selectedWidget=( !updateShow)?{name:"",desc:""}:this.props.selected
+    console.log(updateShow,selectedWidget)
     const demoWidgetText=
      <Segment basic textAlign="center">
           <Header as='h1'>Widgets Loaded for Module Id = {this.props.moduleId}</Header>
@@ -36,16 +42,73 @@ class WidgetPage extends Component {
         </Icon.Group>
        </Segment>
 
+  const showButton= <Segment basic textAlign="center">
+        <Button fluid color="green" onClick={this.props.openForm}>
+          New widget
+        </Button>
+      </Segment>
+const addButton= <Segment basic textAlign="center">
+            <Button fluid color="green" onClick={()=>this.props.addWidget(this.refs.form)}>
+              Add
+            </Button>
+          </Segment>
+  const updateButton= <Segment basic textAlign="center">
+            <Button fluid color="teal" onClick={()=>this.props.updateWidget(this.props.selected.Id,this.refs.form,)}>
+              update widget
+            </Button>
+              </Segment>
+ const WidgetsItemList = this.props.widgetsList.map((widget) =>(
+   <Segment basic>
+    <ul key={widget.id}>
+      {widget.name}
+    </ul>
+  </Segment>))
+
+
+
+var formElement=<Form>
+    <Form.Group widths='equal' ref="form">
+      <Form.Select required fluid label='Type' options={WIDGET_OPTIONS} placeholder='Widget Type' />
+      <Form.Input key={selectedWidget.name||"new"}
+          defaultValue={selectedWidget.name}
+          required fluid label='Name' placeholder='Name of Widget' />
+        <Form.Input key={selectedWidget.desc||"new"}
+          defaultValue={selectedWidget.desc}
+          required fluid label='Content/URL' placeholder='Content/URL' />
+    </Form.Group>
+  </Form>
+
     return (
- <Segment padded raised color="blue">
+ <Segment padded raised color="blue" >
+
    { (this.props.moduleId!=null) && (this.props.chapterId!=null)
-     &&!this.props.loading && !this.props.failed &&  demoWidgetText }
+     &&!this.props.loading && !this.props.failed &&
+        this.props.showForm && formElement}
+
+  { (this.props.moduleId!=null) && (this.props.chapterId!=null)
+          &&!this.props.loading && !this.props.failed &&!this.props.showForm
+           && showButton}
+
+  { (this.props.moduleId!=null) && (this.props.chapterId!=null)
+  &&!this.props.loading && !this.props.failed &&this.props.showForm && addButton}
+
+  { (this.props.moduleId!=null) && (this.props.chapterId!=null)
+    &&!this.props.loading && !this.props.failed &&updateShow && updateButton}
+
+   { (this.props.moduleId!=null) && (this.props.chapterId!=null)
+     &&!this.props.loading && !this.props.failed && !this.props.showForm &&
+      WidgetsItemList }
+
    { (this.props.chapterId!=null) && this.props.loading && loadingItem }
+
    { (this.props.chapterId!=null) && this.props.failed && failedItem}
+
    { (this.props.moduleId==null) && noModuleSelectedItem}
+
     { (this.props.chapterId==null) && noChapterSelectedItem}
 
  </Segment>
+
 /*{see help.js on how to use widgets}
 */
 );
@@ -58,12 +121,12 @@ const mapStateToProps = (state) => ({
   failed:state.widget.failed,
   selected:state.widget.selected,
   chapterId:state.chapter.active,
-  moduleId:state.module.active
+  moduleId:state.module.active,
+  showForm:state.widget.showForm
 });
 
+export default connect(mapStateToProps, {openForm})(WidgetPage);
 // Another way to Map actions to props
 // const mapDispatchToProps = (dispatch) => ({
 //     onRollDice: () => dispatch(rollDice())
 // });
-
-export default connect(mapStateToProps, {})(WidgetPage);
