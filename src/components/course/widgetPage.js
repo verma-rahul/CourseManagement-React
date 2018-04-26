@@ -67,6 +67,7 @@ class WidgetPage extends Component {
 
     const  loadingItem= <Segment basic textAlign="center">
          <Icon loading name='spinner'size='huge' />
+      <Header as='h1'>   Loading.. </Header>
        </Segment>
 
     const  noModuleSelectedItem=   <Segment disabled basic textAlign="center">
@@ -82,6 +83,9 @@ class WidgetPage extends Component {
        </Segment>
 
     const  failedItem=   <Segment  basic textAlign="center">
+      <Header as='h1'>
+            Failed
+          </Header>
          <Icon.Group size='huge'>
           <Icon loading name='spinner' />
           <Icon color="red"  name='warning'  />
@@ -94,7 +98,8 @@ class WidgetPage extends Component {
           </Button>
           </Segment>
 const addButton= <Segment basic textAlign="center">
-            <Button fluid color="green" onClick={()=>this.props.addWidget(this.makeWidgetObject(this.refs))}>
+            <Button fluid color="green"
+              onClick={()=>this.props.addWidget(this.makeWidgetObject(this.refs))}>
               Add
             </Button>
           </Segment>
@@ -104,7 +109,9 @@ const cancelButton= <Segment basic textAlign="center">
                       </Button>
                     </Segment>
   const updateButton= <Segment basic textAlign="center">
-            <Button fluid color="teal" onClick={()=>this.props.updateWidget(this.props.selected.id,this.makeWidgetObject(this.refs))}>
+            <Button fluid color="teal"
+              onClick={()=>this.props.updateWidget
+                (this.props.selected.id,this.makeWidgetObject(this.refs))}>
               update widget
             </Button>
               </Segment>
