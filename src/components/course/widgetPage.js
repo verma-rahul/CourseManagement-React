@@ -8,11 +8,64 @@ import {openForm,closeForm,
         selectWidget,deleteWidget,
         updateWidget,addWidget} from "../../actions/widgetAction"
 class WidgetPage extends Component {
+  constructor(props){
+    super(props)
+    this.populateSelectedWidget.bind(this)
+  }
+  populateSelectedWidget(){
+    const updateShow=!(Object.keys(this.props.selected).length === 0)
+    if (!updateShow)
+    return {name:"",desc:""}
+
+    const TYPE=this.props.selected.type
+    console.log(this.props.selected)
+    switch(TYPE) {
+     case "HTML" :
+     return {name:this.props.selected.name,desc:this.props.selected.content,type:TYPE}
+     break;
+
+     case "VIDEO" :
+     return {name:this.props.selected.name,desc:this.props.selected.url,type:TYPE}
+     break;
+
+     case "IMAGE" :
+     return {name:this.props.selected.name,desc:this.props.selected.url,type:TYPE}
+     break;
+
+     case "TEXT":
+     return {name:this.props.selected.name,desc:this.props.selected.content,type:TYPE}
+     break;
+     }
+
+  }
+  makeWidgetObject(refs){
+    const NAME=refs.newName.inputRef.value,DESC=refs.newDesc.inputRef.value,
+            TYPE=refs.newType.value
+    switch(TYPE) {
+     case "HTML" :
+     return {name:NAME,content:DESC,type:TYPE}
+     break;
+
+     case "VIDEO" :
+      return {name:NAME,url:DESC,type:TYPE}
+     break;
+
+     case "IMAGE" :
+     return {name:NAME,url:DESC,type:TYPE}
+     break;
+
+     case "TEXT":
+      return {name:NAME,content:DESC,type:TYPE}
+     break;
+     }
+  }
+
   render() {
     this.showForm=false
     console.log(this.props)
     const updateShow= !(Object.keys(this.props.selected).length === 0)
-    const selectedWidget=( !updateShow)?{name:"",desc:""}:this.props.selected
+    const selectedWidget=this.populateSelectedWidget()
+
     console.log(updateShow,selectedWidget)
     const demoWidgetText=
      <Segment basic textAlign="center">
@@ -50,7 +103,7 @@ class WidgetPage extends Component {
         </Button>
       </Segment>
 const addButton= <Segment basic textAlign="center">
-            <Button fluid color="green" onClick={()=>this.props.addWidget(this.refs.form)}>
+            <Button fluid color="green" onClick={()=>this.props.addWidget(this.makeWidgetObject(this.refs))}>
               Add
             </Button>
           </Segment>
@@ -60,15 +113,19 @@ const cancelButton= <Segment basic textAlign="center">
                       </Button>
                     </Segment>
   const updateButton= <Segment basic textAlign="center">
-            <Button fluid color="teal" onClick={()=>this.props.updateWidget(this.props.selected.id,this.props.selected)}>
+            <Button fluid color="teal" onClick={()=>this.props.updateWidget(this.props.selected.id,this.makeWidgetObject(this.refs))}>
               update widget
             </Button>
               </Segment>
  const WidgetsItemList = this.props.widgetsList.map((widget) =>(
   <Grid.Row key={widget.id}>
    <Grid.Column width={14}>
-     <Header as='h2'>{widget.name}</Header>
-     <Image  src='http://cdn.newsapi.com.au/image/v1/eb2c300a22b064cb3843313360341728' size='medium' rounded />
+     <Header as='h4'>{widget.name}</Header>
+    {(widget.type=="VIDEO") &&
+      <iframe src={widget.url.replace("watch?v=", "embed/")} > </iframe>}
+    {(widget.type=="IMAGE") && <Image  src={widget.url} size='medium' rounded />}
+    {(widget.type=="TEXT") && <p>{widget.content}</p>}
+    {(widget.type=="HTML") && <div>{widget.content}</div>}
    </Grid.Column>
    <Grid.Column width={2}>
      <Icon name='pencil' color="yellow" inverted circular link
@@ -84,25 +141,44 @@ const cancelButton= <Segment basic textAlign="center">
    </Grid.Column>
  </Grid.Row>))
 
-var formElement=<Form>
+var formElementNew=<Form>
     <Form.Group widths='equal' >
-      <Form.Select required fluid label='Type' options={WIDGET_OPTIONS} placeholder='Widget Type' />
-      <Form.Input key={selectedWidget.name||"new"}
-          defaultValue={selectedWidget.name}
-          required fluid label='Name' placeholder='Name of Widget' />
-        <Form.Input key={selectedWidget.desc||"new"}
-          defaultValue={selectedWidget.desc}
-          required fluid label='Content/URL' placeholder='Content/URL' />
+          <Form.Field label='Type' control='select' placeholder='Widget Type' defaultValue="Widget Type">
+         <option value='HTML' ref="newType">HTML</option><option value='VIDEO' ref="newType">VIDEO</option>
+         <option value='TEXT' ref="newType">TEXT</option><option value='IMAGE' ref="newType">IMAGE</option>
+        </Form.Field>
+          <Form.Field  required >
+          <label>Name of Widget</label>
+          <Input placeholder='Name of Widget' ref="newName" />
+          </Form.Field>
+          <Form.Field required >
+          <label>Content/URL</label>
+          <Input placeholder='Content/URL'  ref="newDesc" />
+          </Form.Field>
     </Form.Group>
   </Form>
+  var formElementUpdate=<Form>
+      <Form.Group widths='equal' >
+        <Form.Field label='Type' control='select' placeholder='Widget Type' disabled>
+          <option value={selectedWidget.type} ref="newType">{selectedWidget.type}</option>
+      </Form.Field>
+          <Form.Field key={selectedWidget.name||"newName"}  required >
+          <label>Name of Widget</label>
+          <Input placeholder='Name of Widget' defaultValue={selectedWidget.name} ref="newName" />
+          </Form.Field>
+          <Form.Field key={selectedWidget.desc||"newdesc"} required >
+          <label>Content/URL</label>
+          <Input placeholder='Content/URL' defaultValue={selectedWidget.desc} ref="newDesc" />
+          </Form.Field>
+
+      </Form.Group>
+    </Form>
 
     return (
  <Segment padded raised color="blue" >
-
-
    { (this.props.moduleId!=null) && (this.props.chapterId!=null)
      &&!this.props.loading && !this.props.failed &&
-        this.props.showForm && formElement}
+        this.props.showForm&&!updateShow && formElementNew}
 
   { (this.props.moduleId!=null) && (this.props.chapterId!=null)
           &&!this.props.loading && !this.props.failed &&
@@ -111,6 +187,11 @@ var formElement=<Form>
   { (this.props.moduleId!=null) && (this.props.chapterId!=null)
   &&!this.props.loading && !this.props.failed &&this.props.showForm &&
    !updateShow && addButton }
+
+
+
+  { (this.props.moduleId!=null) && (this.props.chapterId!=null)
+    &&!this.props.loading && !this.props.failed && updateShow && formElementUpdate}
 
   { (this.props.moduleId!=null) && (this.props.chapterId!=null)
       &&!this.props.loading && !this.props.failed && updateShow && updateButton}
@@ -158,5 +239,3 @@ export default connect(mapStateToProps, {openForm,closeForm,
 // const mapDispatchToProps = (dispatch) => ({
 //     onRollDice: () => dispatch(rollDice())
 // });
-
-  //
