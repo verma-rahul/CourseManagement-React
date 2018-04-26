@@ -23,6 +23,8 @@ class ChapterNavbar extends Component {
      onClick={(e) =>
       ((e.target.nodeName=="A")?this.props.makeActiveChapter(chapter.id):null)}>
        {chapter.name}
+
+     <Segment basic>
      <Icon name='pencil' color="yellow" inverted circular link
          size="small"
          onClick={() =>
@@ -30,7 +32,7 @@ class ChapterNavbar extends Component {
      <Icon name='close' color="red" inverted circular link
            size="small"
            onClick={() =>
-             this.props.deleteChapter(chapter.id)}/>
+             this.props.deleteChapter(chapter.id)}/></Segment>
     </Menu.Item>));
 
 

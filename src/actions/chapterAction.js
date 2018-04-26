@@ -11,14 +11,14 @@ const makeActiveChapterStarted=  (chapterId) =>({
   type:TYPES.CHAPTER_MAKE_ACTIVE,
   payload:chapterId
 })
-const widgetsLoadSuccess = (data) =>  ({
+export const widgetsLoadSuccess = (data) =>  ({
   type: TYPES.WIDGETS_LOAD_SUCCESS,
   payload:data
 })
-const widgetsLoadFailure = () => ({
+export const widgetsLoadFailure = () => ({
   type: TYPES.WIDGETS_LOAD_FAILED,
 })
-const widgetsLoadStarted = () => ({
+export const widgetsLoadStarted = () => ({
   type: TYPES.WIDGETS_LOAD_START,
 })
 export const makeActiveChapter = (chapterId) => ((dispatch, getState) =>
@@ -37,10 +37,6 @@ export const makeActiveChapter = (chapterId) => ((dispatch, getState) =>
 })
 
 
-// chaptersLoadStarted,
-// chaptersLoadFailure,
-// chaptersLoadSuccess,
-// makeActiveModule
 export const updateChapter = (chapterId,newChapter) => ((dispatch, getState) =>
 {
       console.log("in updateChapter, STARTED",chapterId,newChapter)

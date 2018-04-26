@@ -16,52 +16,44 @@ class WidgetPage extends Component {
     const updateShow=!(Object.keys(this.props.selected).length === 0)
     if (!updateShow)
     return {name:"",desc:""}
-
     const TYPE=this.props.selected.type
-    console.log(this.props.selected)
     switch(TYPE) {
      case "HTML" :
      return {name:this.props.selected.name,desc:this.props.selected.content,type:TYPE}
      break;
-
      case "VIDEO" :
      return {name:this.props.selected.name,desc:this.props.selected.url,type:TYPE}
      break;
-
      case "IMAGE" :
      return {name:this.props.selected.name,desc:this.props.selected.url,type:TYPE}
      break;
-
      case "TEXT":
      return {name:this.props.selected.name,desc:this.props.selected.content,type:TYPE}
      break;
      }
-
   }
   makeWidgetObject(refs){
-    const NAME=refs.newName.inputRef.value,DESC=refs.newDesc.inputRef.value,
-            TYPE=refs.newType.value
+    console.log(refs)
+    const NAME=refs.newName.inputRef.value,
+          DESC=refs.newDesc.inputRef.value,
+          TYPE=refs.newType.value
     switch(TYPE) {
      case "HTML" :
-     return {name:NAME,content:DESC,type:TYPE}
-     break;
-
+      return {name:NAME,content:DESC,type:TYPE}
+      break;
      case "VIDEO" :
       return {name:NAME,url:DESC,type:TYPE}
-     break;
-
+      break;
      case "IMAGE" :
-     return {name:NAME,url:DESC,type:TYPE}
-     break;
-
+      return {name:NAME,url:DESC,type:TYPE}
+      break;
      case "TEXT":
       return {name:NAME,content:DESC,type:TYPE}
-     break;
+      break;
      }
   }
 
   render() {
-    this.showForm=false
     console.log(this.props)
     const updateShow= !(Object.keys(this.props.selected).length === 0)
     const selectedWidget=this.populateSelectedWidget()
@@ -89,7 +81,6 @@ class WidgetPage extends Component {
             <Icon name='chevron up'size='small' color="yellow"/></Header>
        </Segment>
 
-
     const  failedItem=   <Segment  basic textAlign="center">
          <Icon.Group size='huge'>
           <Icon loading name='spinner' />
@@ -98,10 +89,10 @@ class WidgetPage extends Component {
        </Segment>
 
   const showButton= <Segment basic textAlign="center">
-        <Button fluid color="green" onClick={this.props.openForm}>
-          New widget
-        </Button>
-      </Segment>
+          <Button fluid color="green" onClick={this.props.openForm}>
+            New widget
+          </Button>
+          </Segment>
 const addButton= <Segment basic textAlign="center">
             <Button fluid color="green" onClick={()=>this.props.addWidget(this.makeWidgetObject(this.refs))}>
               Add
@@ -125,7 +116,8 @@ const cancelButton= <Segment basic textAlign="center">
       <iframe src={widget.url.replace("watch?v=", "embed/")} > </iframe>}
     {(widget.type=="IMAGE") && <Image  src={widget.url} size='medium' rounded />}
     {(widget.type=="TEXT") && <p>{widget.content}</p>}
-    {(widget.type=="HTML") && <div>{widget.content}</div>}
+    {(widget.type=="HTML") &&
+      <div dangerouslySetInnerHTML={{ __html: widget.content }} />}
    </Grid.Column>
    <Grid.Column width={2}>
      <Icon name='pencil' color="yellow" inverted circular link
@@ -143,9 +135,12 @@ const cancelButton= <Segment basic textAlign="center">
 
 var formElementNew=<Form>
     <Form.Group widths='equal' >
-          <Form.Field label='Type' control='select' placeholder='Widget Type' defaultValue="Widget Type">
-         <option value='HTML' ref="newType">HTML</option><option value='VIDEO' ref="newType">VIDEO</option>
-         <option value='TEXT' ref="newType">TEXT</option><option value='IMAGE' ref="newType">IMAGE</option>
+          <Form.Field required>
+          <label> Type </label>
+          <select ref="newType">
+         <option value='HTML' >HTML</option><option value='VIDEO' >VIDEO</option>
+         <option value='TEXT' >TEXT</option><option value='IMAGE' >IMAGE</option>
+         </select>
         </Form.Field>
           <Form.Field  required >
           <label>Name of Widget</label>
@@ -159,9 +154,13 @@ var formElementNew=<Form>
   </Form>
   var formElementUpdate=<Form>
       <Form.Group widths='equal' >
-        <Form.Field label='Type' control='select' placeholder='Widget Type' disabled>
+          <Form.Field  placeholder='Widget Type' disabled>
+          <label> Type </label>
+          <select ref="newType" selected="Widget Type">
           <option value={selectedWidget.type} ref="newType">{selectedWidget.type}</option>
-      </Form.Field>
+          </select>
+          </Form.Field>
+
           <Form.Field key={selectedWidget.name||"newName"}  required >
           <label>Name of Widget</label>
           <Input placeholder='Name of Widget' defaultValue={selectedWidget.name} ref="newName" />
@@ -176,6 +175,7 @@ var formElementNew=<Form>
 
     return (
  <Segment padded raised color="blue" >
+
    { (this.props.moduleId!=null) && (this.props.chapterId!=null)
      &&!this.props.loading && !this.props.failed &&
         this.props.showForm&&!updateShow && formElementNew}
@@ -188,8 +188,6 @@ var formElementNew=<Form>
   &&!this.props.loading && !this.props.failed &&this.props.showForm &&
    !updateShow && addButton }
 
-
-
   { (this.props.moduleId!=null) && (this.props.chapterId!=null)
     &&!this.props.loading && !this.props.failed && updateShow && formElementUpdate}
 
@@ -199,7 +197,6 @@ var formElementNew=<Form>
   { (this.props.moduleId!=null) && (this.props.chapterId!=null)
   &&!this.props.loading && !this.props.failed &&this.props.showForm &&
    cancelButton}
-
 
    { (this.props.moduleId!=null) && (this.props.chapterId!=null)
      &&!this.props.loading && !this.props.failed && !this.props.showForm &&
@@ -214,11 +211,7 @@ var formElementNew=<Form>
    { (this.props.moduleId==null) && noModuleSelectedItem}
 
     { (this.props.chapterId==null) && noChapterSelectedItem}
- </Segment>
-
-/*{see help.js on how to use widgets}
-*/
-);
+ </Segment>);
 }
 }
 
