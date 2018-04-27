@@ -2,41 +2,27 @@ import React,{Component } from 'react';
 import {Icon, Dropdown, Menu , Sidebar,
   Segment, Button, Header,Input } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-
+import { connect } from 'react-redux';
+import {} from "../../actions/commonAction";
 class Navbar extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {menuVisible: false,
-                  activePage:''};
-  }
-
- handlePageClick = (e, { name }) =>
- {
-    this.setState({
-      activePage: name
-  })
-}
-
  render() {
-   const activePage = this.state.activePage
    return (
        <Menu inverted fixed="top" fluid size="mini">
-          <Menu.Item as={Link} to='/' name='home' active={activePage === 'home'}
-            onClick={this.handlePageClick}>
+          <Menu.Item as={Link} to='/' name='home' >
           Course Manager
           </Menu.Item>
           <Menu.Menu position='right'>
-            <Menu.Item name='login' active={activePage === 'login'} as={Link} to='/login'
-              onClick={this.handlePageClick} />
-            <Menu.Item name='profile' active={activePage === 'profile'} as={Link} to='/profile'
-              onClick={this.handlePageClick} />
-            <Menu.Item name='register' active={activePage === 'register'} as={Link} to='/register'
-                onClick={this.handlePageClick} />
-              <Menu.Item name='CourseDetails' active={activePage === 'CourseDetails'} as={Link} to='/CourseDetails'
-              onClick={this.handlePageClick} />
-              <Menu.Item name='CourseList' active={activePage === 'CourseList'} as={Link} to='/CourseList'
-              onClick={this.handlePageClick} />
+       {  !this.props.user && <Menu.Item name='login' as={Link}
+       to='/login' />}
+       {  this.props.user && <Menu.Item name='profile'as={Link}
+       to='/profile' />}
+       {  !this.props.user && <Menu.Item name='register' as={Link}
+       to='/register'/>}
+       {  this.props.user && <Menu.Item name='CourseDetails' as={Link}
+        to='/CourseDetails'/>}
+       {  this.props.user && <Menu.Item name='CourseList' as={Link}
+       to='/CourseList'/>}
           </Menu.Menu>
         </Menu>
    )
@@ -44,4 +30,13 @@ class Navbar extends Component {
 }
 
 
-export default Navbar
+const mapStateToProps = (state) => ({
+    user:state.app.user,
+    activePage:state.app.activePage
+});
+
+export default connect(mapStateToProps, {})(Navbar);
+
+
+// active={activePage === 'CourseList'}
+//   onClick={this.handlePageClick}

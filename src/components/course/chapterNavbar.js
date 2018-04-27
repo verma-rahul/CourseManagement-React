@@ -94,7 +94,7 @@ const mapStateToProps = (state) => ({
   loading: state.chapter.loading,
   active: state.chapter.active,
   chaptersList: state.chapter.chaptersList,
-  showSidebar: state.app.showSidebar,
+  showSidebar: state.course.showSidebar,
   failed:state.chapter.failed,
   selected:state.chapter.selected,
   moduleId:state.module.active

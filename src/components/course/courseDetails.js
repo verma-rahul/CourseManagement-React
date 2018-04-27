@@ -10,28 +10,6 @@ import styles from './courseDetails.css';
 class CourseDetails extends Component {
 
   render() {
-    const CoursePageLoading =  (
-      <Grid padded >
-            <Grid.Row >
-                <Segment loading>
-        <Image src='../../assets/images/loadingCoursePage.png' />
-      </Segment>
-    </Grid.Row>
-  </Grid>
-    )
-  const CoursePageLoaded= (
-    <Grid padded >
-          <Grid.Row >
-     <Segment padded='very' basic>
-<ModuleSidebar>
-  <ChapterNavbar />
-  <WidgetPage />
-</ModuleSidebar>
-</Segment>
- </Grid.Row>
-</Grid>
-  )
-
     return (
       <Grid>
     <ModuleSidebar>

@@ -23,15 +23,22 @@ const INIT_WIDGET_PAGE_STATE = {
 const INIT_APP_STATE = {
    // to be changed later
  showSidebar:true,
-
- activePage:"home",
+ activePage:"",
   // to be changed later
  user:true,
  // to be changed later
- course:{id:1,name:"A"},
- courseDetail:[],
- courseloading:false,
- courseloadingFailed:false
+ course:{id:1,name:"A"}
 }
 
-export default {INIT_CHAPTER_STATE ,INIT_MODULE_STATE,INIT_WIDGET_PAGE_STATE,INIT_APP_STATE};
+
+const INIT_COURSE_STATE = {
+  active:null,
+  selected:{},
+  loading:false,
+  courseList:[],
+  Failed:false,
+  showSidebar:true
+}
+
+export default {INIT_CHAPTER_STATE ,INIT_MODULE_STATE,INIT_WIDGET_PAGE_STATE,
+                INIT_APP_STATE,INIT_COURSE_STATE};

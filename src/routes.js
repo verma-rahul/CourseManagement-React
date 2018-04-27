@@ -10,28 +10,23 @@ import Navbar from "./components/common/navbar"
 import WelcomePage from "./components/common/welcomePage"
 import NotFound from "./components/common/notFound"
 import { Segment,Grid,GridRow,GridColumn,Header, Container } from 'semantic-ui-react'
-import {loadCourseDetails,toggleSidebar} from "./actions/commonAction";
+import {} from "./actions/commonAction";
 import { connect } from 'react-redux';
 
 
 class AppRouter extends Component {
-      constructor(props){
-        super(props)
-        this.checkLoggedIn.bind(this)
-      }
 
-// {match,history,location}
+
 checkLoggedIn(){
   return this.props.user
 }
     render() {
-      console.log(this.props)
       return (
   <Router>
-    <div>
-  <Navbar/>
+        <div>
+          <Navbar/>
             <Switch>
-                  <Route exact path="/" component={WelcomePage}/>
+                  <Route exact path="/" component={WelcomePage} />
                   <Route path="/login" component={Login}/>
                   <Route path="/register" component={Register}/>
                   <Route path="/profile" render={

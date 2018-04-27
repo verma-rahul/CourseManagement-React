@@ -90,7 +90,7 @@ const mapStateToProps = (state) => ({
     loading: state.module.loading,
     active: state.module.active,
     modulesList: state.module.modulesList,
-    showSidebar: state.app.showSidebar,
+    showSidebar: state.course.showSidebar,
     failed:state.module.failed,
     selected:state.module.selected
 });
