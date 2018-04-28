@@ -21,10 +21,8 @@ const INIT_WIDGET_PAGE_STATE = {
 }
 
 const INIT_APP_STATE = {
-   // to be changed later
- activePage:"",
   // to be changed later
- user:true,
+ user:{id:1},
  loading:false,
  failed:false,
 
@@ -33,7 +31,6 @@ const INIT_APP_STATE = {
 const INIT_COURSE_STATE = {
   // to be changed later
   active:1,
-  selected:{},
   loading:false,
   courseList:[],
   Failed:false,

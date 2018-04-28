@@ -6,15 +6,16 @@ switch(action.type) {
  case TYPES.TOGGLE_SIDEBAR :
  return {...state, showSidebar: !state.showSidebar}
  break;
- case TYPES.COURSE_LOAD_START :
- return {...state, loading: true,courseList:[]}
+ case TYPES.COURSE_LIST_LOAD_START :
+ return {...state, loading: true,courseList:[],failed:false}
  break;
- case TYPES.COURSE_LOAD_SUCCESS :
+ case TYPES.COURSE_LIST_LOAD_SUCCESS :
  return {...state, courseList: action.payload,loading:false,failed:false}
  break;
- case TYPES.COURSE_LOAD_FAILED :
- return {...state, failed: true,courseList:[]}
+ case TYPES.COURSE_LIST_LOAD_FAILED :
+ return {...state, failed: true,courseList:[],loading:false}
  break;
+
  default :
  return state
  }

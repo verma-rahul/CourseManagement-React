@@ -6,150 +6,129 @@ import {
 Card } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import COURSEIMAGE from "../../assests/images/DETAILS.PNG"
+import { connect } from 'react-redux';
+import {loadCourseList} from "../../actions/courseAction";
+
 class CourseList extends Component {
+  constructor(props){
+    super(props)
+    this.state = {name:"",selected:false}
+    this.selectForUpdate.bind(this)
+  }
+  componentWillMount(){
+    this.props.loadCourseList()
+  }
 handleCardClick(e){
   console.log('CARD')
 }
 handleButtonClick(e,prop){
   console.log('BUTTON')
 }
+selectForUpdate(courseName){
+  this.setState({name:courseName,selected:true})
+}
+cancelUpdate(){
+  this.setState({name:"",selected:false})
+}
+submit(){
+  const {name} = this.state;
+  if(!this.checkProperties({name},1)){
+      alert("Enter All 2 Fields")
+  }else{
+    // this.props.userLogin(this.state.username,this.state.password)
+  }
+}
+checkProperties(obj,len) {
+  if (Object.keys(obj).length <len)
+    return false
+    for (var key in obj) {
+        if (obj[key] == null || obj[key] == "")
+            return false;
+    }
+    return true;
+}
+handleInputChange(e,prop) {
+    let change = {}
+    change[prop.name] =prop.value
+    this.setState(change)
+  }
+
   render() {
-  const courseElement =(<Card link onClick={(e) =>
-        ((e.target.nodeName=="DIV")?this.handleCardClick():null)}>
+const COURSELISTLOADED= !(this.props.courseList.length === 0)
+
+  const courseCardList = this.props.courseList.map( (course) =>
+  (<Card key={course.id} link onClick={(e) =>
+    ((e.target.nodeName=="DIV")?this.handleCardClick():null)}>
           <Image src={COURSEIMAGE} />
-
     <Card.Content>
-{true &&  <Card.Header>Daniel</Card.Header>}
-        {false &&       <Input fluid
-                 placeholder="Enter new Course ...">
-             <input />
-                 <Icon name='checkmark' color="teal"
-                 inverted circular link />
-             </Input> }
-        </Card.Content>
- <Card.Content extra>
+        {!this.state.selected &&  <Card.Header>{course.name}</Card.Header>}
+        {this.state.selected  &&
+           <Input fluid placeholder="Enter new Course ..."
+             name="name"
+             onChange={this.handleInputChange.bind(this)}
+             value={this.state.name}>
+                    <input />
+                    <Icon name='checkmark' color="teal"
+                      inverted circular link />
+                    <Icon name='close' color="red"
+                        inverted circular link
+                        onClick={this.cancelUpdate.bind(this)}/>
+                  </Input> }
+    </Card.Content>
+    {!this.state.selected &&
+      <Card.Content extra>
    <Button.Group fluid>
-   <Button color='yellow' icon='pencil'  onClick={(e) => this.handleButtonClick(e,)}></Button>
-   <Button color='red' icon='close'></Button>
- </Button.Group>
-   </Card.Content>
+  <Button color='yellow' icon='pencil'
+     onClick={()=>this.selectForUpdate(course.name)}/>
+   <Button color='red' icon='close' onClick={this.handleButtonClick}/>
+  </Button.Group>
+</Card.Content> }
+ </Card>))
+const newCourseCard=(<Card fluid color='blue'>
+         <Card.Content>
+        <Input fluid
+               placeholder="Enter Course ...">
+           <input />
+               <Icon name='add' color="green"
+                 inverted circular link />
+           </Input>
+         </Card.Content>
+
       </Card>)
-    return (
+const  loadingItem= (<Segment basic textAlign="center">
+           <Icon loading name='spinner'size='huge' />
+        <Header as='h1'>   Loading.. </Header>
+        </Segment>)
+
+const  failedItem=   (<Segment  basic textAlign="center">
+           <Header as='h1'>
+                 Failed
+               </Header>
+              <Icon.Group size='huge'>
+               <Icon loading name='spinner' />
+               <Icon color="red"  name='warning'  />
+             </Icon.Group>
+           </Segment>)
+return (
       <Segment padded basic>
+        {!this.props.loading
+          && !this.props.failed &&
           <Card.Group>
-             <Card fluid color='blue'>
-                <Card.Content>
-               <Input fluid
-                      placeholder="Enter Course ...">
-                  <input />
-                      <Icon name='add' color="green"
-                        inverted circular link />
-                  </Input>
-                </Card.Content>
-
-             </Card>
-  {courseElement}
-
-    </Card.Group>
+            {newCourseCard}
+            {courseCardList}
+          </Card.Group>}
+      {this.props.loading && loadingItem}
+      {this.props.failed && failedItem}
     </ Segment>
  );
   }
 }
 
-export default CourseList;
+const mapStateToProps = (state) => ({
+    courseList:state.course.courseList,
+    loading:state.course.loading,
+    failed:state.course.failed
+});
 
-
-
-// <Form>
-// <Form.Group widths='equal'>
-// <Form.Input fluid label='First name' placeholder='First name' />
-// <Form.Input fluid label='Last name' placeholder='Last name' />
-//
-// </Form.Group>
-// </Form>
-
-// <Grid padded  >
-//      <Grid.Row centered>
-//      <Segment padded='very' raised >
-//      <Header as='h1'>PlaceHolder For Course List</Header>
-//
-//       </ Segment>
-//     </Grid.Row>
-//          </Grid>
-
-
-// <Form.Group inline>
-//   <Form.Input placeholder='First Name' type='text'
-//      name="firstName"/>
-//    <Form.Button>
-     // <Icon name='checkmark' color="teal"
-     // inverted circular link />
-   // <Icon name='add' color="green"
-   //   inverted circular link />
-//    </Form.Button>
-// </Form.Group>
-
-
-
-// <Card.Group>
-//    <Card>
-//      <Card.Content>
-//        <Image floated='right' size='mini' src='../' />
-//        <Card.Header>
-//          Steve Sanders
-//        </Card.Header>
-//        <Card.Meta>
-//          Friends of Elliot
-//        </Card.Meta>
-//        <Card.Description>
-//          Steve wants to add you to the group <strong>best friends</strong>
-//        </Card.Description>
-//      </Card.Content>
-//      <Card.Content extra>
-//        <div className='ui two buttons'>
-//          <Button basic color='green'>Approve</Button>
-//          <Button basic color='red'>Decline</Button>
-//        </div>
-//      </Card.Content>
-//    </Card>
-//    <Card>
-//      <Card.Content>
-//        <Image floated='right' size='mini' src='/assets/images/avatar/large/molly.png' />
-//        <Card.Header>
-//          Molly Thomas
-//        </Card.Header>
-//        <Card.Meta>
-//          New User
-//        </Card.Meta>
-//        <Card.Description>
-//          Molly wants to add you to the group <strong>musicians</strong>
-//        </Card.Description>
-//      </Card.Content>
-//      <Card.Content extra>
-//        <div className='ui two buttons'>
-//          <Button basic color='green'>Approve</Button>
-//          <Button basic color='red'>Decline</Button>
-//        </div>
-//      </Card.Content>
-//    </Card>
-//    <Card>
-//      <Card.Content>
-//        <Image floated='right' size='mini' src='/assets/images/avatar/large/jenny.jpg' />
-//        <Card.Header>
-//          Jenny Lawrence
-//        </Card.Header>
-//        <Card.Meta>
-//          New User
-//        </Card.Meta>
-//        <Card.Description>
-//          Jenny requested permission to view your contact details
-//        </Card.Description>
-//      </Card.Content>
-//      <Card.Content extra>
-//        <div className='ui two buttons'>
-//          <Button basic color='green'>Approve</Button>
-//          <Button basic color='red'>Decline</Button>
-//        </div>
-//      </Card.Content>
-//    </Card>
-//  </Card.Group>
+export default connect(mapStateToProps,
+  {loadCourseList})(CourseList);
