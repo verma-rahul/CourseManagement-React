@@ -44,7 +44,7 @@ checkLoggedIn(){
                                                  (<NotFound/>))}/>
                   <Route path="/CourseList" render={
                     () => (this.checkLoggedIn() ? (<CourseList/>):
-                                                 (<NotFound/>))}/>
+                                                 (<CourseList/>))}/>
                   <Route component={NotFound}/>
             </Switch>
 </div>

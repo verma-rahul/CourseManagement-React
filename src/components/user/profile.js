@@ -17,7 +17,6 @@ constructor(props){
 }
   submit(){
     const {username,password,firstName,lastName} = this.state;
-    console.log(username,password,firstName,lastName)
     if(!this.checkProperties({username,password,firstName,lastName},4)){
         alert("Enter All 4 Fields")
     }else{
@@ -41,7 +40,6 @@ handleInputChange(e,prop) {
     this.setState(change)
   }
  render() {
-   console.log(this.state)
         return (
           <Grid padded  >
            <Grid.Row centered>
