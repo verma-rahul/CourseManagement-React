@@ -11,7 +11,7 @@ class NotFound extends Component {
     return (  <Grid padded  >
          <Grid.Row centered>
          <Segment padded='very' raised >
-         <Header as='h1'>Page not Found Or Not Login</Header>
+         <Header as='h1'>Page not Found Or Not Login or Access Denied</Header>
          <Button.Group>
           <Button primary size='massive' as={Link} to='/'> Go to Home</Button>
          </Button.Group>

@@ -10,7 +10,10 @@ class UserAsyncApis {
     console.log(API.USER_LOGIN(username,password))
     return axios.get(API.USER_LOGIN(username,password))
   }
-
+  static updateUser(userId,newUser){
+    console.log(API.USER_BY_USER_ID(userId))
+    return axios.put(API.USER_BY_USER_ID(userId),newUser)
+  }
 }
 
 

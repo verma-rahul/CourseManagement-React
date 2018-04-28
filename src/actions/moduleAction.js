@@ -46,11 +46,11 @@ export const makeActiveModule = (moduleId) => ((dispatch, getState) =>
 
 })
 
-export const loadModules = (CourseId=1) => ((dispatch, getState) =>
+export const loadModules = (CourseId) => ((dispatch, getState) =>
 {
       console.log("in loadModules, STARTED")
       dispatch(modulesLoadStarted());
-      ModuleAsyncApis.getModulesByCourseId(getState().app.course.id)
+      ModuleAsyncApis.getModulesByCourseId(getState().course.active)
       .then(response => {
           console.log("in loadModules, FETCHED")
           dispatch(modulesLoadSuccess(response.data));
@@ -80,7 +80,7 @@ export const addModule= (module) => ((dispatch, getState) =>
 {
   console.log("in addModule, STARTED",module)
   dispatch(modulesLoadStarted());
-  ModuleAsyncApis.addModule(getState().app.course.id,module)
+  ModuleAsyncApis.addModule(getState().course.active,module)
   .then(response => {
     console.log("val added", response.data)
      dispatch(loadModules())

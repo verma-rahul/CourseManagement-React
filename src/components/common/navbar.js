@@ -4,25 +4,29 @@ import {Icon, Dropdown, Menu , Sidebar,
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import {} from "../../actions/commonAction";
+import {logout} from "../../actions/userAction"
 class Navbar extends Component {
 
  render() {
+   const userExists=!(Object.keys(this.props.user).length === 0)
    return (
        <Menu inverted fixed="top" fluid size="mini">
           <Menu.Item as={Link} to='/' name='home' >
           Course Manager
           </Menu.Item>
           <Menu.Menu position='right'>
-       {  !this.props.user && <Menu.Item name='login' as={Link}
-       to='/login' />}
-       {  this.props.user && <Menu.Item name='profile'as={Link}
+       {  !userExists && <Menu.Item name='login' as={Link}
+       to='/login' />}  
+       {  userExists && <Menu.Item name='profile'as={Link}
        to='/profile' />}
-       {  !this.props.user && <Menu.Item name='register' as={Link}
+       {  !userExists && <Menu.Item name='register' as={Link}
        to='/register'/>}
-       {  this.props.user && <Menu.Item name='CourseDetails' as={Link}
-        to='/CourseDetails'/>}
-       {  this.props.user && <Menu.Item name='CourseList' as={Link}
+       {  userExists && <Menu.Item name='CourseList' as={Link}
        to='/CourseList'/>}
+       {  userExists && <Menu.Item name='CourseDetails' as={Link}
+        to='/CourseDetails'/>}
+       {  userExists && <Menu.Item name='logout' as={Link} onClick={this.props.logout}
+       to='/' />}
           </Menu.Menu>
         </Menu>
    )
@@ -31,11 +35,10 @@ class Navbar extends Component {
 
 
 const mapStateToProps = (state) => ({
-    user:state.app.user,
-    activePage:state.app.activePage
+    user:state.app.user
 });
 
-export default connect(mapStateToProps, {})(Navbar);
+export default connect(mapStateToProps, {logout})(Navbar);
 
 
 // active={activePage === 'CourseList'}

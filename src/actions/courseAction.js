@@ -14,11 +14,11 @@ const courseLoadFailure = () => ({
   type: TYPES.COURSE_LOAD_FAILED,
 })
 
-export const loadCourseDetails = (CourseId=1) => ((dispatch, getState) =>
+export const loadCourseDetails = (CourseId) => ((dispatch, getState) =>
 {
       console.log("in loadCourseDetails, STARTED")
       dispatch(courseLoadStarted());
-      CourseAsyncApis.getCourseDetail(CourseId)
+      CourseAsyncApis.getCourseDetail(getState().course.active)
       .then(data => {
           console.log("in loadCourseDetails, FETCHED")
           dispatch(courseLoadSuccess(data));

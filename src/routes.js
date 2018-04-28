@@ -1,4 +1,4 @@
-import {BrowserRouter as Router} from 'react-router-dom';
+import {Router} from 'react-router-dom';
 import React, { Component } from 'react';
 import {Route, Switch, Redirect} from "react-router-dom";
 import Login from  "./components/user/login" ;
@@ -12,24 +12,31 @@ import NotFound from "./components/common/notFound"
 import { Segment,Grid,GridRow,GridColumn,Header, Container } from 'semantic-ui-react'
 import {} from "./actions/commonAction";
 import { connect } from 'react-redux';
-
+import {HISTORY} from "./constants/common"
 
 class AppRouter extends Component {
 
 
 checkLoggedIn(){
-  return this.props.user
+  return !(Object.keys(this.props.user).length === 0)
 }
     render() {
       return (
-  <Router>
+  <Router history={HISTORY}>
         <div>
           <Navbar/>
-            <Switch>
+            <Switch >
                   <Route exact path="/" component={WelcomePage} />
-                  <Route path="/login" component={Login}/>
-                  <Route path="/register" component={Register}/>
-                  <Route path="/profile" render={
+                  <Route path="/login"
+                    render={
+                      () => (!this.checkLoggedIn() ? (<Login/>):
+                                                   (<NotFound/>))}/>
+                  <Route path="/register"
+                    render={
+                    () => (!this.checkLoggedIn() ? (<Register/>):
+                                                 (<NotFound/>))}/>
+                  <Route path="/profile"
+                    render={
                     () => (this.checkLoggedIn() ? (<Profile/>):
                                                  (<NotFound/>))}/>
                   <Route path="/CourseDetails" render={

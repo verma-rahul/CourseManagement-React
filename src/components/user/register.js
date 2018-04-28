@@ -10,7 +10,10 @@ import {userRegister} from "../../actions/userAction"
 import { connect } from 'react-redux';
 
 class Register extends Component {
-  state = {}
+  constructor(props){
+    super(props)
+    this.state = {username:"",password:"",type:"",firstName:"",lastName:""}
+  }
   submit(){
     console.log(this.state)
     if(!this.checkProperties(this.state,5)){
@@ -20,7 +23,7 @@ class Register extends Component {
     }
   }
 
-   checkProperties(obj,len) {
+checkProperties(obj,len) {
   if (Object.keys(obj).length <len)
     return false
     for (var key in obj) {
@@ -29,23 +32,12 @@ class Register extends Component {
     }
     return true;
 }
-handleChange = (e, x) =>
-
-{
-    console.log(e.target.name)
-  console.log(e,x)
-  this.setState({type: x.value })
-
-}
 handleInputChange(e,prop) {
-    // console.log(prop)
     let change = {}
     change[prop.name] =prop.value
     this.setState(change)
   }
  render() {
-      console.log("renderin again")
-      console.log(this.state)
         return (
           <Grid padded  >
            <Grid.Row centered>
@@ -54,7 +46,7 @@ handleInputChange(e,prop) {
             <Form.Group widths='equal'>
         <Form.Input label='First Name' placeholder='First Name' type='text'
            name="firstName" onChange={this.handleInputChange.bind(this)}
-           value={this.state.name}/>
+           value={this.state.firstName}/>
         <Form.Input  label='Last Name' placeholder='Last Name' type='text'
           name="lastName" onChange={this.handleInputChange.bind(this)}
           value={this.state.lastName}/>
@@ -69,15 +61,15 @@ handleInputChange(e,prop) {
       </Form.Group>
       <Form.Group  widths='equal'>
           <Form.Radio name="type"
-            label='Student' value='Student'
-            checked={this.state.type === "Student"}
+            label='Student' value='STUDENT'
+            checked={this.state.type === "STUDENT"}
             onChange={this.handleInputChange.bind(this)}  />
 
           <Form.Radio
             name="type"
             label='Faculty'
-            value='Faculty'
-             checked={this.state.type === "Faculty"}
+            value='FACULTY'
+             checked={this.state.type === "FACULTY"}
               onChange={this.handleInputChange.bind(this)} />
  </Form.Group>
       <Button color='blue' fluid onClick={this.submit.bind(this)} >Register</Button>
@@ -95,39 +87,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {userRegister})(Register);
-// <Ref innerRef={ node => this.radio=node}>
-// <Form.Field  key={this.checked}
-//   control={Radio} label='One' value="one"
-//   checked={this.checked == 'one'} onChange={this.handleChange}>
-// </Form.Field>
-// </Ref>
-// <Ref innerRef={ node => this.radio2=node}>
-// <Form.Field key={this.checked}
-//  control={Radio} label='two' value="two"
-//  checked={this.checked == 'two'} onChange={this.handleChange}>
-// </Form.Field>
-// </Ref>
-
-
-//   <Form.Field >
-  //   <Input ref="s" type='radio' value="mail"/>
-  // </Form.Field>
-
-// <Form.Radio label='Faculty' value='Faculty'
- //   checked={this.type == "Faculty"}
- // onChange={(e, { value }) => this.type=value} />
-
-
-
-
- // <Form.Field control={Radio} label='One' value='asdc1' name="contact" />
- //     <Form.Field >
- //   <label >Phone</label>
- // <Input type="radio"
- //   name="contact" value="phone"></Input>
- // </Form.Field>
- //   <Form.Field >
- //       <label >Mail</label>
- //     <input type="radio"
- //       name="contact" value="mail"></input>
- //   </Form.Field>
