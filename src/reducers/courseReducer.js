@@ -7,13 +7,19 @@ switch(action.type) {
  return {...state, showSidebar: !state.showSidebar}
  break;
  case TYPES.COURSE_LIST_LOAD_START :
- return {...state, loading: true,courseList:[],failed:false}
+ return {...state, loading: true,courseList:[],failed:false,
+          localStateReset:true}
  break;
  case TYPES.COURSE_LIST_LOAD_SUCCESS :
- return {...state, courseList: action.payload,loading:false,failed:false}
+ return {...state, courseList: action.payload,loading:false,failed:false,
+          localStateReset:false}
  break;
  case TYPES.COURSE_LIST_LOAD_FAILED :
  return {...state, failed: true,courseList:[],loading:false}
+ break;
+
+ case TYPES.COURSE_MAKE_ACTIVE:
+ return {...state, failed: false,loading:false,active:action.payload}
  break;
 
  default :

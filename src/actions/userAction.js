@@ -1,7 +1,7 @@
 import TYPES from "../constants/actionTypes"
 import UserAsyncApis from "../apis/userAsyncApis"
 import {HISTORY} from "./../constants/common"
-
+import {setActivePage} from "./commonAction";
 
 const userLoadStarted = () => ({
   type: TYPES.USER_LOAD_START,
@@ -24,6 +24,7 @@ export const userRegister = (user) => ((dispatch, getState) =>
           dispatch(userLoadSuccess(response.data));
           alert("Register Successul")
           HISTORY.push("/profile")
+          dispatch(setActivePage("profile"))
       })
       .catch(err => {
         console.log("in userRegister, FAILED")
@@ -51,13 +52,15 @@ export const userLogin = (username,password) => ((dispatch, getState) =>
       .then(response => {
           console.log("in userLogin, FETCHED")
           alert("Login Successul")
-          HISTORY.push('/profile')
+          HISTORY.push('/courseList')
           dispatch(userLoadSuccess(response.data[0]));
+          dispatch(setActivePage("CourseList"))
       })
       .catch(err => {
         console.log("in userLogin, FAILED")
           dispatch(userLoadFailure())  })
 })
-export const logout = () => ({
-  type: TYPES.USER_LOGOUT
+export const logout = () => ((dispatch, getState) => {
+    dispatch({  type: TYPES.USER_LOGOUT})
+    dispatch(setActivePage(""))
 })

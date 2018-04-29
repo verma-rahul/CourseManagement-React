@@ -19,6 +19,10 @@ switch(action.type) {
   return {...state, failed: false,loading: false,user:{}}
   break;
 
+  case TYPES.SWITCH_PAGE:
+  return {...state, activePage:action.payload}
+  break;
+
   default :
   return state
 }

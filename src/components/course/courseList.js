@@ -7,22 +7,23 @@ Card } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import COURSEIMAGE from "../../assests/images/DETAILS.PNG"
 import { connect } from 'react-redux';
-import {loadCourseList} from "../../actions/courseAction";
+import {loadCourseList,updateCourse,addCourse,
+deleteCourse,makeActiveCourse} from "../../actions/courseAction";
 
 class CourseList extends Component {
   constructor(props){
     super(props)
-    this.state = {name:"",selected:false}
+    this.state = {name:"",selected:false,newName:""}
     this.selectForUpdate.bind(this)
+    this.resetState.bind(this)
   }
   componentWillMount(){
     this.props.loadCourseList()
+
   }
-handleCardClick(e){
-  console.log('CARD')
-}
-handleButtonClick(e,prop){
-  console.log('BUTTON')
+componentWillReceiveProps(props){
+  if (this.props.resetLocalState)
+  this.resetState()
 }
 selectForUpdate(courseName){
   this.setState({name:courseName,selected:true})
@@ -30,12 +31,16 @@ selectForUpdate(courseName){
 cancelUpdate(){
   this.setState({name:"",selected:false})
 }
-submit(){
-  const {name} = this.state;
+submit(event,name,id){
+
   if(!this.checkProperties({name},1)){
-      alert("Enter All 2 Fields")
+      alert("Enter a value for name ")
   }else{
-    // this.props.userLogin(this.state.username,this.state.password)
+    if (event=="ADD")
+    this.props.addCourse({name})
+    else {
+        this.props.updateCourse(id,{name})
+    }
   }
 }
 checkProperties(obj,len) {
@@ -53,24 +58,27 @@ handleInputChange(e,prop) {
     this.setState(change)
   }
 
+  resetState(){
+    this.setState({name:"",selected:false,newName:""})
+  }
   render() {
-const COURSELISTLOADED= !(this.props.courseList.length === 0)
 
   const courseCardList = this.props.courseList.map( (course) =>
-  (<Card key={course.id} link onClick={(e) =>
-    ((e.target.nodeName=="DIV")?this.handleCardClick():null)}>
+  (<Card key={course.id} link onClick={(e) => (((e.target.nodeName=="DIV")||
+    (e.target.nodeName=="IMG"))?this.props.makeActiveCourse(course.id):null)}>
           <Image src={COURSEIMAGE} />
     <Card.Content>
         {!this.state.selected &&  <Card.Header>{course.name}</Card.Header>}
         {this.state.selected  &&
-           <Input fluid placeholder="Enter new Course ..."
+           <Input fluid placeholder="Enter Course Name..."
              name="name"
              onChange={this.handleInputChange.bind(this)}
              value={this.state.name}>
                     <input />
                     <Icon name='checkmark' color="teal"
-                      inverted circular link />
-                    <Icon name='close' color="red"
+                      inverted circular link
+                      onClick={()=>this.submit("UPDATE",this.state.name,course.id)}/>
+                    <Icon name='close' color="grey"
                         inverted circular link
                         onClick={this.cancelUpdate.bind(this)}/>
                   </Input> }
@@ -80,17 +88,21 @@ const COURSELISTLOADED= !(this.props.courseList.length === 0)
    <Button.Group fluid>
   <Button color='yellow' icon='pencil'
      onClick={()=>this.selectForUpdate(course.name)}/>
-   <Button color='red' icon='close' onClick={this.handleButtonClick}/>
+   <Button color='red' icon='close' onClick={()=>this.props.deleteCourse(course.id)}/>
   </Button.Group>
 </Card.Content> }
  </Card>))
 const newCourseCard=(<Card fluid color='blue'>
          <Card.Content>
         <Input fluid
-               placeholder="Enter Course ...">
+               placeholder="Enter Course Name..."
+                 name="newName"
+                 onChange={this.handleInputChange.bind(this)}
+                 value={this.state.newName}>
            <input />
                <Icon name='add' color="green"
-                 inverted circular link />
+                 inverted circular link
+                 onClick={()=>this.submit("ADD",this.state.newName,null)}/>
            </Input>
          </Card.Content>
 
@@ -127,8 +139,10 @@ return (
 const mapStateToProps = (state) => ({
     courseList:state.course.courseList,
     loading:state.course.loading,
-    failed:state.course.failed
+    failed:state.course.failed,
+    resetLocalState:state.course.localStateReset
 });
 
 export default connect(mapStateToProps,
-  {loadCourseList})(CourseList);
+  {loadCourseList,updateCourse,addCourse,
+  deleteCourse,makeActiveCourse})(CourseList);

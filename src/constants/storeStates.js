@@ -1,3 +1,4 @@
+import {HISTORY} from "./common"
 const INIT_CHAPTER_STATE = {
  loading:false,
  active:null,
@@ -21,20 +22,19 @@ const INIT_WIDGET_PAGE_STATE = {
 }
 
 const INIT_APP_STATE = {
-  // to be changed later
- user:{id:1},
+ user:{},
  loading:false,
  failed:false,
-
+ activePage:HISTORY.location.pathname.replace('/','')
 }
 
 const INIT_COURSE_STATE = {
-  // to be changed later
-  active:1,
+  active:null,
   loading:false,
   courseList:[],
   Failed:false,
-  showSidebar:true
+  showSidebar:true,
+  localStateReset:false
 }
 
 export default {INIT_CHAPTER_STATE ,INIT_MODULE_STATE,INIT_WIDGET_PAGE_STATE,

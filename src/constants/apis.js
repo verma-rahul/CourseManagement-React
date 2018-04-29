@@ -9,10 +9,10 @@ const USER_REGISTER = `/api/user/`
 const USER_LOGIN = (username,password) =>`/api/user/?username=${username}&password=${password}`
 const USER_BY_USER_ID = (userId) =>`/api/user/${userId}`
 const COURSE_BY_USER_ID = (userId) => `/api/course/?user_id=${userId}`
-
+const COURSE_BY_COURSE_ID =(courseId) => `/api/course/${courseId}`
 
 export default {COURSE_DETAIL,MODULE_BY_COURSE_ID,CHAPTER_BY_MODULE_ID,
                 MODULE_BY_MODULE_ID,CHAPTER_BY_CHAPTER_ID,
                 WIDGET_BY_CHAPTER_ID ,WIDGET_BY_WIDGET_ID,
                 USER_REGISTER,USER_LOGIN,USER_BY_USER_ID,
-                COURSE_BY_USER_ID };
+                COURSE_BY_USER_ID,COURSE_BY_COURSE_ID };

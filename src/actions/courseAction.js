@@ -1,6 +1,7 @@
 import TYPES from "../constants/actionTypes"
 import CourseAsyncApis from "../apis/courseAsyncApis"
-
+import {HISTORY} from "./../constants/common"
+import {setActivePage} from "./commonAction";
 const courseListLoadStarted = () => ({
   type: TYPES.COURSE_LIST_LOAD_START,
 })
@@ -11,6 +12,14 @@ const courseListLoadSuccess = (data) =>  ({
 
 const courseListLoadFailure = () => ({
   type: TYPES.COURSE_LIST_LOAD_FAILED,
+})
+
+export const makeActiveCourse=  (courseId) => ((dispatch, getState) =>
+{
+dispatch( { type:TYPES.COURSE_MAKE_ACTIVE,
+          payload:courseId})
+HISTORY.push('/CourseDetails')
+dispatch(setActivePage("CourseDetails"))
 })
 
 export const loadCourseList = () => ((dispatch, getState) =>
@@ -28,46 +37,46 @@ export const loadCourseList = () => ((dispatch, getState) =>
 })
 
 
-//
-// export const updateModule = (moduleId,newModule) => ((dispatch, getState) =>
-// {
-//       console.log("in updateModule, STARTED",moduleId,newModule)
-//       dispatch(modulesLoadStarted());
-//       ModuleAsyncApis.updateModule(moduleId,newModule)
-//       .then(response => {
-//         console.log("val updated", response.data)
-//          dispatch(loadModules())
-//       })
-//       .catch(err => {
-//         console.log("in updateModules, FAILED",err)
-//         dispatch(modulesLoadFailure())  })
-// })
-//
-//
-// export const addModule= (module) => ((dispatch, getState) =>
-// {
-//   console.log("in addModule, STARTED",module)
-//   dispatch(modulesLoadStarted());
-//   ModuleAsyncApis.addModule(getState().course.active,module)
-//   .then(response => {
-//     console.log("val added", response.data)
-//      dispatch(loadModules())
-//   })
-//   .catch(err => {
-//     console.log("in addModules, FAILED",err)
-//     dispatch(modulesLoadFailure())  })
-// })
-//
-// export const deleteModule= (moduleId) => ((dispatch, getState) =>
-// {
-//       console.log("in addModule, deleteModule",moduleId)
-//       dispatch(modulesLoadStarted());
-//       ModuleAsyncApis.deleteModule(moduleId)
-//       .then(response => {
-//         console.log("val del", response)
-//          dispatch(loadModules())
-//       })
-//       .catch(err => {
-//         console.log("in del, FAILED",err)
-//         dispatch(modulesLoadFailure())  })
-// })
+
+export const updateCourse = (courseId,newCourse) => ((dispatch, getState) =>
+{
+      console.log("in updateCourse, STARTED",courseId,newCourse)
+          dispatch(courseListLoadStarted());
+      CourseAsyncApis.updateCourse(courseId,newCourse)
+      .then(response => {
+        console.log("updateCourse", response.data)
+         dispatch(loadCourseList())
+      })
+      .catch(err => {
+        console.log("in updateCourse, FAILED",err)
+        dispatch(courseListLoadFailure())  })
+})
+
+
+export const addCourse= (course) => ((dispatch, getState) =>
+{
+  console.log("in addCourse, STARTED",course)
+    dispatch(courseListLoadStarted());
+  CourseAsyncApis.addCourse(getState().app.user.id,course)
+  .then(response => {
+    console.log("val added", response.data)
+     dispatch(loadCourseList())
+  })
+  .catch(err => {
+    console.log("in addModules, FAILED",err)
+    dispatch(courseListLoadFailure())  })
+})
+
+export const deleteCourse= (courseId) => ((dispatch, getState) =>
+{
+      console.log("in STARTED, deleteCourse",courseId)
+        dispatch(courseListLoadStarted());
+      CourseAsyncApis.deleteCourse(courseId)
+      .then(response => {
+        console.log("deleteCourse,SUCCESS", response)
+         dispatch(loadCourseList())
+      })
+      .catch(err => {
+        console.log("deleteCourse, FAILED",err)
+        dispatch(courseListLoadFailure())  })
+})
